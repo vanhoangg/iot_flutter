@@ -13,8 +13,8 @@ class RecomendsPlants extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: <Widget>[
-          RecomendPlantCard(
+        children: List.generate(3, (index) {
+          return RecomendPlantCard(
             image: "assets/images/image_1.png",
             title: "Samantha",
             country: "Russia",
@@ -26,27 +26,8 @@ class RecomendsPlants extends StatelessWidget {
                 ),
               );
             },
-          ),
-          RecomendPlantCard(
-            image: "assets/images/image_2.png",
-            title: "Angelica",
-            country: "Russia",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
-                ),
-              );
-            },
-          ),
-          RecomendPlantCard(
-            image: "assets/images/image_3.png",
-            title: "Samantha",
-            country: "Russia",
-            press: () {},
-          ),
-        ],
+          );
+        }),
       ),
     );
   }

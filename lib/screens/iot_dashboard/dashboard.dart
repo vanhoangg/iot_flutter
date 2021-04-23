@@ -9,14 +9,15 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:socket_io/socket_io.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
-import '../../../constants.dart';
+import '../../constants.dart';
+import 'components/sensor_item.dart';
 
-class TemperatureScreen extends StatefulWidget {
+class DashBoardScreen extends StatefulWidget {
   @override
   _AppStateMQTT createState() => _AppStateMQTT();
 }
 
-class _AppStateMQTT extends State<TemperatureScreen> {
+class _AppStateMQTT extends State<DashBoardScreen> {
   // khai báo thông số
   String clientId = Random().toString();
   String mqtt_server = "192.168.1.216";
@@ -55,7 +56,6 @@ class _AppStateMQTT extends State<TemperatureScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TẠO GIAO DIỆN trong Scaffold
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -81,9 +81,9 @@ class _AppStateMQTT extends State<TemperatureScreen> {
                   ),
                 ),
                 Expanded(
-                  flex:5,
+                  flex: 5,
                   child: Container(
-                    alignment:Alignment.center,
+                    alignment: Alignment.center,
                     child: Text("Smart IOT",
                         style: TextStyle(
                             color: Color(0xFF0C9869),
@@ -92,7 +92,7 @@ class _AppStateMQTT extends State<TemperatureScreen> {
                   ),
                 ),
                 Expanded(
-                  flex:1,
+                  flex: 1,
                   child: SizedBox(
                       height: 40,
                       width: MediaQuery.of(context).size.width / 4,
@@ -114,86 +114,12 @@ class _AppStateMQTT extends State<TemperatureScreen> {
                       )),
                 ),
               ]),
-              Container(
-                padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
+              SizedBox(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ButtonTheme(
-                            padding: const EdgeInsets.all(8),
-                            buttonColor: Color(0xFF0C9869),
-                            height: 48,
-                            child: RaisedButton(
-                              onPressed: onclick1,
-                              padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.red)),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Cập nhật Nhiệt Độ",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              Image.asset("assets/icons/8.jpg"),
-                              Text(
-                                "15 g/m3",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ButtonTheme(
-                            buttonColor: Color(0xFF0C9869),
-                            padding: const EdgeInsets.all(8),
-                            height: 48,
-                            child: RaisedButton(
-                              padding: EdgeInsets.fromLTRB(16, 0, 32, 0),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.red)),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Cập nhật Độ Ẩm",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              Image.asset("assets/icons/9.jpg"),
-                              Text(
-                                "15 g/m3",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
+                    SensorItem(),
+                    SensorItem(),
                   ],
                 ),
               ),

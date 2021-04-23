@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'temperature.dart';
+import 'package:iot_flutter/screens/iot_dashboard/dashboard.dart';
 
 import '../../../constants.dart';
 import 'icon_card.dart';
@@ -64,15 +64,16 @@ class ImageAndIcons extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TemperatureScreen(),
+                          builder: (context) => DashBoardScreen(),
                         ),
                       );
                     },
                   ),
                   RaisedButton(
+                    onPressed: () {},
                     child: Container(
                       margin:
-                      EdgeInsets.symmetric(vertical: size.height * 0.03),
+                          EdgeInsets.symmetric(vertical: size.height * 0.03),
                       padding: EdgeInsets.all(kDefaultPadding / 2),
                       height: 62,
                       width: 62,

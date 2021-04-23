@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:iot_flutter/screens/iot_dashboard/dashboard.dart';
 
 import '../../../constants.dart';
-import 'temperature.dart';
 
 class IconCard extends StatelessWidget {
   const IconCard({
@@ -43,7 +43,7 @@ class IconCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TemperatureScreen(),
+            builder: (context) => DashBoardScreen(),
           ),
         );
       },
