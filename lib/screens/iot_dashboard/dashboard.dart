@@ -118,8 +118,12 @@ class _AppStateMQTT extends State<DashBoardScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SensorItem(),
-                    SensorItem(),
+                    SensorItem(title: "Nhiệt độ", data: "38", unit: "°C"),
+                    SensorItem(
+                      title: "Độ ẩm",
+                      data: "38",
+                      unit: "g/m",
+                    ),
                   ],
                 ),
               ),
@@ -142,6 +146,7 @@ class _AppStateMQTT extends State<DashBoardScreen> {
     } else {
       _disconnect();
     }
+    
     isChecked = value;
   }
 
