@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import 'featurred_plants.dart';
 import 'header_with_seachbox.dart';
 import 'recomend_plants.dart';
 import 'title_with_more_bbtn.dart';

@@ -1,8 +1,8 @@
-class AirConditionerModel{
-  final String name;
-  final bool isStart;
+class AirConditionerModel {
+  String name;
+  bool isStart;
 
-  AirConditionerModel(this.name, this.isStart);
+  AirConditionerModel({this.name, this.isStart});
 
   AirConditionerModel.fromJsonMap(Map<String, dynamic> map)
       : name = map["name"],

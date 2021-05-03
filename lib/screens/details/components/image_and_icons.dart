@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iot_flutter/screens/iot_dashboard/dashboard.dart';
 
 import '../../../constants.dart';
-import 'icon_card.dart';
 
 class ImageAndIcons extends StatelessWidget {
   const ImageAndIcons({

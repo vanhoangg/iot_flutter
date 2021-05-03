@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iot_flutter/screens/iot_dashboard/components/unicorn_button.dart';
 
-class SensorItem extends StatefulWidget {
-  @override
-  _SensorItemState createState() => _SensorItemState();
-}
+class SensorItem extends StatelessWidget {
+  final String humidity;
 
-class _SensorItemState extends State<SensorItem> {
+  const SensorItem({Key key, this.humidity}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -28,7 +27,7 @@ class _SensorItemState extends State<SensorItem> {
               children: [
                 Image.asset("assets/icons/9.jpg"),
                 Text(
-                  "15 g/m3",
+                  humidity == null ? "0" : "$humidity",
                   style: TextStyle(color: Colors.black),
                 ),
               ],
