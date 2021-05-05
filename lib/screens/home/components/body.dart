@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iot_flutter/screens/home/components/info_iot.dart';
 
 import '../../../constants.dart';
 import 'header_with_seachbox.dart';
@@ -16,11 +17,10 @@ class Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           HeaderWithSearchBox(size: size),
-          TitleWithMoreBtn(title: "Recomended", press: () {}),
+          TitleWithMoreBtn(title: "Recomended"),
           RecomendsPlants(),
-          // TitleWithMoreBtn(title: "Featured Plants", press: () {}),
-          // FeaturedPlants(),
-          SizedBox(height: kDefaultPadding),
+          TitleWithMoreBtn(title: "News"),
+          InfoPage(),
         ],
       ),
     );

@@ -14,9 +14,8 @@ class MyBottomNavBar extends StatelessWidget {
       padding: EdgeInsets.only(
         left: kDefaultPadding * 2,
         right: kDefaultPadding * 2,
-        bottom: kDefaultPadding,
       ),
-      height: 80,
+      height: 50,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -35,6 +34,10 @@ class MyBottomNavBar extends StatelessWidget {
               icon: SvgPicture.asset("assets/icons/flower.svg"),
               onPressed: () {},
             ),
+          ),
+          VerticalDivider(
+            width: 5,
+            thickness: 2,
           ),
           Expanded(
             child: IconButton(
