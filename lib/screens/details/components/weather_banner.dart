@@ -46,15 +46,11 @@ class Percent extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 17,
           height: 17,
           child: icon,
         ),
-        const SizedBox(
-          width: 2,
-        ),
         Text(
-          (percent == null ? '  ' : percent.toString()) + '%',
+          (percent == null ? '0' : percent.toString()) + '%',
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
         )
       ],

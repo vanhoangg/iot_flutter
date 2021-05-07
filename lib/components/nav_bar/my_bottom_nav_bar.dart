@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:iot_flutter/screens/history/history_page.dart';
+import 'package:iot_flutter/screens/home/home_screen.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
 
 class MyBottomNavBar extends StatelessWidget {
   const MyBottomNavBar({
@@ -32,7 +35,9 @@ class MyBottomNavBar extends StatelessWidget {
           Expanded(
             child: IconButton(
               icon: SvgPicture.asset("assets/icons/flower.svg"),
-              onPressed: () {},
+              onPressed: () {
+                Get.back();
+              },
             ),
           ),
           VerticalDivider(
@@ -42,7 +47,9 @@ class MyBottomNavBar extends StatelessWidget {
           Expanded(
             child: IconButton(
               icon: SvgPicture.asset("assets/icons/user-icon.svg"),
-              onPressed: () {},
+              onPressed: () {
+                Get.to(HistoryPage());
+              },
             ),
           ),
         ],

@@ -19,14 +19,14 @@ class HomeController extends GetxController {
   var listPlants = Rx<List<Plant>>();
   getInfoIot() async {
     await infoIotRepository.fetchBanners().then((value) {
-      listInfo?.value = value;
+      listInfo.value = value;
       update();
     });
   }
 
   getListPlant() async {
     await plantRepository.getPlant().then((value) {
-      listPlants?.value = value;
+      listPlants.value = value;
       update();
     });
   }

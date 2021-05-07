@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iot_flutter/screens/home/components/info_iot.dart';
 
-import '../../../constants.dart';
 import 'header_with_seachbox.dart';
 import 'recomend_plants.dart';
 import 'title_with_more_bbtn.dart';

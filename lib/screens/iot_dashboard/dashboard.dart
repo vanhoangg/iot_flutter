@@ -40,13 +40,14 @@ class _AppStateMQTT extends State<DashBoardScreen> {
                       Color(0xFFF9F8FD),
                     ])),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(children: [
                       Expanded(
+                        flex: 1,
                         child: IconButton(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: kDefaultPadding / 2),
                           icon: SvgPicture.asset("assets/icons/back_arrow.svg"),
                           onPressed: () {
                             Navigator.pop(context);
@@ -54,7 +55,7 @@ class _AppStateMQTT extends State<DashBoardScreen> {
                         ),
                       ),
                       Expanded(
-                        flex: 5,
+                        flex: 6,
                         child: Container(
                           alignment: Alignment.center,
                           child: Text("Smart IOT",
@@ -64,34 +65,13 @@ class _AppStateMQTT extends State<DashBoardScreen> {
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: SizedBox(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width / 4,
-                            child: Row(
-                              children: <Widget>[
-                                Center(
-                                  child: Switch(
-                                    value: controller.mayLanh.value.isStart,
-                                    onChanged: (value) {
-                                      controller.onChangeSensor();
-                                      setState(() {});
-                                    },
-                                    activeTrackColor: Color(0xFF0C9869),
-                                    activeColor: Colors.black12,
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
                     ]),
                     SizedBox(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SensorItem(
-                            humidity: controller.mayLanh.value.name,
+                            humidity: controller.sensor.value.name,
                           ),
                           SensorItem(),
                         ],
