@@ -20,7 +20,7 @@ class RecomendsPlants extends StatelessWidget {
     return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Container(
-          child: Obx(() => controller.listPlants.value.length == null
+          child: Obx(() => controller.listPlants.value?.length == null
               ? AppLoading(child: SizedBox(), loading: false)
               : Row(
                   children: List.generate(controller.listPlants.value?.length,

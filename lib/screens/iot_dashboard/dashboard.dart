@@ -33,11 +33,11 @@ class _AppStateMQTT extends State<DashBoardScreen> {
               child: Container(
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                         colors: [
-                      Color(0xFFF9F8FD),
-                      Color(0xFFF9F8FD),
+                      kBackgroundColor,
+                      kPrimaryColor,
                     ])),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,9 +71,13 @@ class _AppStateMQTT extends State<DashBoardScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SensorItem(
-                            humidity: controller.sensor.value.name,
+                            value: controller.sensor.value,
+                            type: "humi",
                           ),
-                          SensorItem(),
+                          SensorItem(
+                            value: controller.sensor.value,
+                            type: "temp",
+                          ),
                         ],
                       ),
                     ),

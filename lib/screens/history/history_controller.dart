@@ -18,6 +18,10 @@ class HistoryController extends GetxController {
         return "assets/images/quat.png";
       case "air-conditioner":
         return "assets/images/maylanh.png";
+      case "incandescent-bulbs":
+        return "assets/icons/temp.jpg";
+      default:
+        return "assets/icons/temp.jpg";
     }
   }
 }

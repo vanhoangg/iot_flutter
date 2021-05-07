@@ -1,17 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:iot_flutter/constants.dart';
+import 'package:iot_flutter/model/air-conditioner_model.dart';
 import 'package:iot_flutter/screens/iot_dashboard/components/unicorn_button.dart';
+import 'package:iot_flutter/screens/iot_dashboard/dashboard_controller.dart';
 
-class SensorItem extends StatelessWidget {
-  final String humidity;
+class SensorItem extends StatefulWidget {
+  final Sensor value;
+  final String type;
 
-  const SensorItem({Key key, this.humidity}) : super(key: key);
+  SensorItem({Key key, this.value, this.type}) : super(key: key);
+
+  @override
+  _SensorItemState createState() => _SensorItemState();
+}
+
+class _SensorItemState extends State<SensorItem> {
+  final DashBoardController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Row(
         children: [
           UnicornOutlineButton(
@@ -22,30 +34,37 @@ class SensorItem extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset("assets/icons/9.jpg"),
-                Text(
-                  humidity == null ? "0" : "$humidity",
-                  style: TextStyle(color: Colors.black),
-                ),
-              ],
+            child: Container(
+              child: controller.getType(widget.value.isStart),
             ),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                controller.onclick1();
+              });
+            },
           ),
           Expanded(
-            flex: 2,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("A"),
-                  Text("A"),
-                  Text("A"),
-                  Text("A"),
-                  Text("A"),
+                  Text(
+                    "Tên người dùng : ${widget.value.user}",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "Nhiệt độ : ${widget.value.temperature}",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "Độ ẩm : ${widget.value.humidity}",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "Trạng thái : ${widget.value.isStart}",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
                 ],
               ),
             ),
