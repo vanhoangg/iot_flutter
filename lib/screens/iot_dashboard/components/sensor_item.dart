@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/constants.dart';
 import 'package:iot_flutter/model/air-conditioner_model.dart';
 import 'package:iot_flutter/screens/iot_dashboard/components/unicorn_button.dart';
 import 'package:iot_flutter/screens/iot_dashboard/dashboard_controller.dart';

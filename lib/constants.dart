@@ -8,12 +8,12 @@ const kBackgroundColor = Color(0xFFF9F8FD);
 
 const double kDefaultPadding = 20.0;
 //Todo config theo ip v4
-const String baseUrl = "http://192.168.1.217:3001/";
+const String baseUrl = "http://127.0.0.1:3001/";
 const String infoIots = "info-iots";
 const String plants = "suggestion-plants";
 const String history = "history";
 //Todo config theo ip v4
-const String mqttUrl = "192.168.1.217";
+const String mqttUrl = "broker.hivemq.com";
 const int mqttPort = 1883; // APP
 // const String tracking = "http://localhost:3001/tracking";
 
