@@ -8,11 +8,11 @@ const kBackgroundColor = Color(0xFFF9F8FD);
 
 const double kDefaultPadding = 20.0;
 
-const String baseUrl = "http://192.168.1.217:3001/";
+const String baseUrl = "http://127.0.0.1:3001/";
 const String infoIots = "info-iots";
 const String plants = "suggestion-plants";
 const String history = "history";
-const String mqttUrl = "mqtt://192.168.1.217";
+const String mqttUrl = "mqtt://127.0.0.1";
 const String tracking = "http://localhost:3001/tracking";
 
 Center kLoadingSpinner = const Center(
