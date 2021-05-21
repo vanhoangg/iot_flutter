@@ -14,41 +14,46 @@ class HeaderWithSearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
+      margin: EdgeInsets.symmetric(vertical: kDefaultPadding * 2.5),
       // It will cover 20% of our total height
-      child: Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-        padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-        height: 54,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 10),
-              blurRadius: 50,
-              color: kPrimaryColor.withOpacity(0.23),
-            ),
-          ],
-        ),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: TextField(
-                onChanged: (value) {},
-                decoration: InputDecoration(
-                  hintText: "Search",
-                  hintStyle: TextStyle(
-                    color: kPrimaryColor.withOpacity(0.5),
+      child: Positioned(
+        bottom: 0,
+        left: 0,
+        right: 0,
+        child: Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+          padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+          height: 54,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 10),
+                blurRadius: 50,
+                color: kPrimaryColor.withOpacity(0.23),
+              ),
+            ],
+          ),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: TextField(
+                  onChanged: (value) {},
+                  decoration: InputDecoration(
+                    hintText: "Search",
+                    hintStyle: TextStyle(
+                      color: kPrimaryColor.withOpacity(0.5),
+                    ),
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
                   ),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
                 ),
               ),
-            ),
-            SvgPicture.asset("assets/icons/search.svg"),
-          ],
+              SvgPicture.asset("assets/icons/search.svg"),
+            ],
+          ),
         ),
       ),
     );

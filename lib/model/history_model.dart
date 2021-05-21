@@ -29,7 +29,7 @@ class History {
         id: json["_id"],
         topic: json["topic"],
         user: json["user"],
-        isStart: json["isStart"] == null ? false : json["isStart"],
+        isStart: json["isStart"],
         date: DateTime.parse(json["date"]),
       );
 

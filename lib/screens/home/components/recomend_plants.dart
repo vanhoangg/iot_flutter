@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iot_flutter/components/loading_page.dart';
 import 'package:iot_flutter/model/plant-model.dart';
 import 'package:iot_flutter/screens/details/components/weather_banner.dart';
 import 'package:iot_flutter/screens/details/details_screen.dart';
@@ -19,8 +20,8 @@ class RecomendsPlants extends StatelessWidget {
     return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Container(
-          child: Obx(() => controller.listPlants?.value?.length == null
-              ? SizedBox.shrink()
+          child: Obx(() => controller.listPlants.value?.length == null
+              ? AppLoading(child: SizedBox(), loading: false)
               : Row(
                   children: List.generate(controller.listPlants.value?.length,
                       (index) {
@@ -61,31 +62,26 @@ class RecomendPlantCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return InkWell(
-      onTap: press,
-      child: Container(
-        // color: Colors.blue,
-        margin: EdgeInsets.only(
-          left: kDefaultPadding,
-          top: kDefaultPadding,
-          bottom: kDefaultPadding,
-        ),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  image,
-                  // fit: BoxFit.cover,
-                ))),
-        width: size.width * 0.4,
-        height: size.width * 0.4,
-        child: Column(
-          children: <Widget>[
-            Spacer(),
-            Container(
-              padding: EdgeInsets.all(kDefaultPadding * 0.3),
+    return Container(
+      margin: EdgeInsets.only(
+        left: kDefaultPadding,
+        top: kDefaultPadding,
+        bottom: kDefaultPadding,
+      ),
+      width: size.width * 0.4,
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 100, child: Image.network(image)),
+          GestureDetector(
+            onTap: press,
+            child: Container(
+              padding: EdgeInsets.all(kDefaultPadding / 2),
               decoration: BoxDecoration(
                 color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
                 boxShadow: [
                   BoxShadow(
                     offset: Offset(0, 10),
@@ -99,7 +95,7 @@ class RecomendPlantCard extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Text("$title".toUpperCase(),
                             style: Theme.of(context).textTheme.button),
                       ),
@@ -120,14 +116,14 @@ class RecomendPlantCard extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Percent(
                           icon: Image.asset('assets/icons/water.jpg'),
                           percent: (plants.water ?? 0.0).toInt(),
                         ),
                       ),
                       Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: Percent(
                           icon: Image.asset('assets/icons/humi.jpg'),
                           percent: (plants.humidity ?? 0.0).toInt(),
@@ -137,9 +133,9 @@ class RecomendPlantCard extends StatelessWidget {
                   )
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
