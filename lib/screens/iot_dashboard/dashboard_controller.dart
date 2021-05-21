@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/constants.dart';
 import 'package:iot_flutter/model/air-conditioner_model.dart';
 
 import 'package:iot_flutter/screens/history/history_controller.dart';
@@ -14,9 +13,10 @@ class DashBoardController extends GetxController {
   HistoryController historyController = HistoryController();
   var sensor = Rx<Sensor>();
   String clientId = Random().toString();
-  // String mqtt_server = "192.168.1.217";
+  String mqtt_server = "192.168.1.217";
   String mqtt_user = "hoang";
   String mqtt_pass = "";
+  int mqtt_port = 1883; // APP => TCP
 
   String airTopic = "air-conditioner";
   String tempTopic = "incandescent-bulbs";
@@ -49,8 +49,8 @@ class DashBoardController extends GetxController {
   // }
 
   void conecttMQTT(String topicsub) async {
-    client = MqttClient(mqttUrl, '');
-    client.port = mqttPort;
+    client = MqttClient(mqtt_server, '');
+    client.port = mqtt_port;
     client.logging(on: true);
     client.keepAlivePeriod = 30;
 
