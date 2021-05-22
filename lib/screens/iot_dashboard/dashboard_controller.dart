@@ -68,6 +68,8 @@ class DashBoardController extends GetxController {
     if (client.connectionState == MqttConnectionState.connected) {
       connectionState = client.connectionState;
       client.subscribe(topicsub, MqttQos.exactlyOnce);
+      client.subscribe(airTopic, MqttQos.exactlyOnce);
+
       print('CONNECT MQTT BROKER AND SUBSCRIBE TOPIC: $topicsub');
       ShowToask("'CONNECT MQTT BROKER");
       client.updates.listen(onMessage);

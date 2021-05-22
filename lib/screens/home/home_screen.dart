@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:iot_flutter/components/nav_bar/my_bottom_nav_bar.dart';
-import 'components/body.dart';
+import 'package:iot_flutter/screens/home/components/header_with_seachbox.dart';
+import 'components/recomend_plants.dart';
+import 'components/title_with_more_bbtn.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,7 +14,23 @@ class HomeScreen extends StatelessWidget {
     Get.put(HomeController());
     return Scaffold(
       appBar: buildAppBar(),
-      body: Body(),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            // Expanded(child: InfoPage()),
+
+            HeaderWithSearchBox(size: MediaQuery.of(context).size),
+            TitleWithMoreBtn(title: "Recomended"),
+            RecomendsPlants(),
+            TitleWithMoreBtn(title: "Menu"),
+            SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }
