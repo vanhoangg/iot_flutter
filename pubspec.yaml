@@ -36,6 +36,8 @@ dependencies:
   http: ^0.12.2
   flutter_screenutil:
   flutter_spinkit: ^4.1.2+1
+  darq: ^0.5.1
+  charts_flutter: ^0.10.0
   
 
 dev_dependencies:
