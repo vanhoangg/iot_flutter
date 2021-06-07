@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iot_flutter/model/plant-model.dart';
 
 import '../../../constants.dart';
+import '../../../model/plant-model.dart';
+import 'weather_banner.dart';
 
 class TitleAndPrice extends StatelessWidget {
   const TitleAndPrice({
@@ -13,23 +14,41 @@ class TitleAndPrice extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+    return Container(
+      padding: EdgeInsets.symmetric(
+          horizontal: kDefaultPadding, vertical: kDefaultPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          RichText(
-            text: TextSpan(
-              text: "${plants.title}\n",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline3
-                  .copyWith(color: kTextColor, fontWeight: FontWeight.bold),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+            child: Text(
+              "${plants.title}",
+              style: TextStyle(
+                  fontSize: titleSize,
+                  color: kTextColor,
+                  fontWeight: FontWeight.bold),
             ),
           ),
-          Text(
-            "Desciption",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          Divider(
+            thickness: 2,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+            child: WeatherBanner(
+              plants: plants,
+            ),
+          ),
+          Divider(
+            thickness: 2,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+            child: Text(
+              "Desciption",
+              style:
+                  TextStyle(fontSize: titleSize, fontWeight: FontWeight.bold),
+            ),
           ),
           Divider(
             thickness: 2,
@@ -37,10 +56,10 @@ class TitleAndPrice extends StatelessWidget {
           RichText(
             text: TextSpan(
               text: plants.description,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  .copyWith(color: kTextColor, fontWeight: FontWeight.w300),
+              style: TextStyle(
+                  fontSize: subTitleSize,
+                  fontWeight: FontWeight.w300,
+                  color: kTextColor),
             ),
           ),
         ],

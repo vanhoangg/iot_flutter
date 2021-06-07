@@ -1,25 +1,48 @@
 import 'package:get/get.dart';
-import 'package:iot_flutter/model/info-iot_model.dart';
-import 'package:iot_flutter/model/plant-model.dart';
-import 'package:iot_flutter/repository/info-iot.repo.dart';
-import 'package:iot_flutter/repository/plant.repo.dart';
+
+import '../../constants.dart';
+import '../../model/info-iot_model.dart';
+import '../../model/plant-model.dart';
+import '../../repository/info-iot.repo.dart';
+import '../../repository/plant.repo.dart';
 
 class HomeController extends GetxController {
   final InfoIotRepository infoIotRepository = InfoIotRepository();
   final PlantRepository plantRepository = PlantRepository();
+  var listInfo = Rx<List<InfoIot>>();
+  var listPlants = Rx<List<Plant>>();
+  var listInfoDevice = Rx<List<InfoIot>>();
+  var listInfoAgri = Rx<List<InfoIot>>();
 
   @override
   void onInit() {
     getInfoIot();
+    getInfoIotDevice();
+    getInfoIotAgri();
     getListPlant();
     super.onInit();
   }
 
-  var listInfo = Rx<List<InfoIot>>();
-  var listPlants = Rx<List<Plant>>();
   getInfoIot() async {
-    await infoIotRepository.fetchBanners().then((value) {
+    String url = "$baseUrl$infoIots";
+    await infoIotRepository.fetchBanners(url: url).then((value) {
       listInfo.value = value;
+      update();
+    });
+  }
+
+  getInfoIotDevice() async {
+    String url = "$baseUrl$infoIotDevice";
+    await infoIotRepository.fetchBanners(url: url).then((value) {
+      listInfoDevice.value = value;
+      update();
+    });
+  }
+
+  getInfoIotAgri() async {
+    String url = "$baseUrl$infoIotAgriculture";
+    await infoIotRepository.fetchBanners(url: url).then((value) {
+      listInfoAgri.value = value;
       update();
     });
   }

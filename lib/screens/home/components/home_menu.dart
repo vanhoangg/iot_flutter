@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/constants.dart';
-import 'package:iot_flutter/screens/history/history_page.dart';
-import 'package:iot_flutter/screens/iot_dashboard/dashboard.dart';
 
-class DashBoardItem extends StatelessWidget {
-  const DashBoardItem({
+import '../../../constants.dart';
+import '../../history/history_page.dart';
+import '../../plants/plant_page.dart';
+import 'info_iot.dart';
+
+class MenuItem extends StatelessWidget {
+  const MenuItem({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+      margin: EdgeInsets.symmetric(
+          horizontal: kDefaultPadding, vertical: kDefaultPadding),
       decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           border: Border.all(width: 2, color: kPrimaryColor)),
-      padding: EdgeInsets.symmetric(vertical: kDefaultPadding * 2),
+      padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -27,21 +30,24 @@ class DashBoardItem extends StatelessWidget {
               children: [
                 Expanded(
                     child: _buildBtn('Nhà kho', 'icons/17.jpg',
-                        onTap: () => Get.to(DashBoardScreen()))),
+                        onTap: () => Get.to(StorePage()))),
                 Expanded(
-                  child: _buildBtn('Tin tức', 'icons/cloud.jpg'),
+                  child: _buildBtn('Tin tức', 'icons/cloud.jpg',
+                      onTap: () => Get.to(InfoPage())),
                 ),
               ],
             ),
           ),
           SizedBox(
-            height: 50,
+            height: ScreenUtil().setHeight(30),
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Row(
               children: [
-                Expanded(child: _buildBtn('Giống cây', 'icons/11.jpg')),
+                Expanded(
+                    child: _buildBtn('Giống cây', 'icons/11.jpg',
+                        onTap: () => Get.to(StorePage()))),
                 Expanded(
                     child: _buildBtn('Thống kê', 'btn5.png',
                         onTap: () => Get.to(HistoryPage()))),
@@ -77,7 +83,10 @@ _buildBtn(String text, String image, {Function onTap}) {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: Colors.black),
+            style: TextStyle(
+                fontSize: titleSize,
+                color: kPrimaryColor,
+                fontWeight: FontWeight.w600),
           ),
         ),
       ],

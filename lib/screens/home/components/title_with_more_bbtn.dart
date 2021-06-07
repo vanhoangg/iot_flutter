@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../app_color.dart';
 import '../../../constants.dart';
 
 class TitleWithMoreBtn extends StatelessWidget {
@@ -14,22 +15,11 @@ class TitleWithMoreBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+      padding: EdgeInsets.symmetric(
+          horizontal: kDefaultPadding / 2, vertical: kDefaultPadding / 2),
       child: Row(
         children: <Widget>[
           TitleWithCustomUnderline(text: title),
-          // Spacer(),
-          // FlatButton(
-          //   shape: RoundedRectangleBorder(
-          //     borderRadius: BorderRadius.circular(20),
-          //   ),
-          //   color: kPrimaryColor,
-          //   onPressed: press,
-          //   child: Text(
-          //     "More",
-          //     style: TextStyle(color: Colors.white),
-          //   ),
-          // ),
         ],
       ),
     );
@@ -47,26 +37,24 @@ class TitleWithCustomUnderline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 24,
+      margin: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+      decoration: BoxDecoration(
+          color: kPrimaryColor,
+          border: Border.all(color: AppColor.secondary ?? Colors.transparent),
+          borderRadius: BorderRadius.circular(5)),
       child: Stack(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left: kDefaultPadding / 4),
+            padding: EdgeInsets.symmetric(
+                horizontal: kDefaultPadding / 4, vertical: kDefaultPadding / 4),
             child: Text(
               text,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: titleSize,
+                  fontWeight: FontWeight.bold,
+                  color: kBackgroundColor),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              margin: EdgeInsets.only(right: kDefaultPadding / 4),
-              height: 7,
-              color: kPrimaryColor.withOpacity(0.2),
-            ),
-          )
         ],
       ),
     );

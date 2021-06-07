@@ -1,96 +1,132 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screen_util.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/model/air-conditioner_model.dart';
-import 'package:iot_flutter/screens/iot_dashboard/components/unicorn_button.dart';
-import 'package:iot_flutter/screens/iot_dashboard/dashboard_controller.dart';
+
+import '../../../constants.dart';
+import '../dashboard_controller.dart';
+import 'unicorn_button.dart';
 
 class SensorItem extends StatefulWidget {
-  final Sensor value;
-  final String type;
-
-  SensorItem({Key key, this.value, this.type}) : super(key: key);
+  SensorItem({
+    Key key,
+  }) : super(key: key);
 
   @override
   _SensorItemState createState() => _SensorItemState();
 }
 
 class _SensorItemState extends State<SensorItem> {
-  final DashBoardController controller = Get.find();
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<DashBoardController>(builder: (controller) {
+      if (controller.mainSensor.value.isStart == null) return loadding;
+      return Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: kDefaultPadding / 2,
+                  horizontal: kDefaultPadding / 2),
+              child: Text(
+                "Thông tin thiết bị".toUpperCase(),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: titleSize,
+                    color: kPrimaryColor),
+              ),
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
+                  child: UnicornOutlineButton(
+                    strokeWidth: 4,
+                    radius: ScreenUtil.defaultSize.width / 12,
+                    gradient: LinearGradient(
+                      colors: [Color(0xff51B1FB), Color(0xffFF6724)],
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomCenter,
+                    ),
+                    child: Container(
+                      child: SizedBox(
+                        height: ScreenUtil().setHeight(50),
+                        width: ScreenUtil().setWidth(50),
+                        child: Image.asset(controller
+                            .setImageForSensor(controller.mainSensor.value)),
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        controller.onclick1(controller.mainSensor.value);
+                      });
+                    },
+                  ),
+                ),
+                Column(
+                  children: [
+                    ItemDetailDashBoard(
+                      title: "Tên người dùng",
+                      value: controller.mainSensor.value.user,
+                    ),
+                    SizedBox(
+                      height: kDefaultPadding,
+                    ),
+                    ItemDetailDashBoard(
+                      title: "Tên thiết bị",
+                      value: controller.mainSensor.value.sensorName,
+                    ),
+                    SizedBox(
+                      height: kDefaultPadding,
+                    ),
+                    ItemDetailDashBoard(
+                      title: "Trạng thái",
+                      value:
+                          controller.mainSensor.value.isStart ? "Bật" : "Tắt",
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
+      );
+    });
+  }
+}
+
+class ItemDetailDashBoard extends StatelessWidget {
+  const ItemDetailDashBoard({
+    Key key,
+    @required this.title,
+    @required this.value,
+  }) : super(key: key);
+
+  final String title;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      child: Row(
-        children: [
-          UnicornOutlineButton(
-            strokeWidth: 4,
-            radius: size.width / 2,
-            gradient: LinearGradient(
-              colors: [Colors.red, Colors.black],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-            child: Container(
-              child: controller.getType(widget.value.isStart),
-            ),
-            onPressed: () {
-              setState(() {
-                controller.onclick1();
-              });
-            },
+    return Column(
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+              fontSize: titleSize,
+              fontWeight: FontWeight.bold,
+              color: kPrimaryColor.withOpacity(0.7)),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: kDefaultPadding / 4),
+          child: Text(
+            value,
+            style: TextStyle(fontSize: subTitleSize, color: kTextColor),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Tên người dùng : ${widget.value.user}",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "Nhiệt độ : ${widget.value.temperature}",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "Độ ẩm : ${widget.value.humidity}",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "Trạng thái : ${widget.value.isStart}",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-      // ElevatedButton(
-      //   style: ElevatedButton.styleFrom(
-      //       shape: CircleBorder(), primary: Colors.black.withOpacity(0.05)),
-      //   child: Container(
-      //     width: MediaQuery.of(context).size.width / 3,
-      //     height: MediaQuery.of(context).size.width / 3,
-      //     alignment: Alignment.center,
-      //     decoration: BoxDecoration(shape: BoxShape.circle),
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: [
-      //         Image.asset("assets/icons/9.jpg"),
-      //         Text(
-      //           "15 g/m3",
-      //           style: TextStyle(color: Colors.black),
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      //   onPressed: () {},
-      // ),
+        ),
+      ],
     );
   }
 }

@@ -4,24 +4,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/constants.dart';
-import 'package:iot_flutter/model/air-conditioner_model.dart';
-
-import 'package:iot_flutter/screens/history/history_controller.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
+import '../../constants.dart';
+import '../../model/history_model.dart';
+import '../../model/sub_sensor.model.dart';
+import '../history/history_controller.dart';
+
 class DashBoardController extends GetxController {
-  HistoryController historyController = HistoryController();
-  var sensor = Rx<Sensor>();
+  var subSensor = Rx<SubSensorModel>();
   String clientId = Random().toString();
   // String mqtt_server = "192.168.1.217";
-  String mqtt_user = "hoang";
-  String mqtt_pass = "";
+  String mqttUsername = "hoang";
+  String mqttPassword = "";
 
-  String airTopic = "air-conditioner";
-  String tempTopic = "incandescent-bulbs";
-  String humiTopic = "fountain"; // nhan du lieu
-  String topicpub = "air-conditioner";
   var sendMessage;
   var humidity = 0.obs;
   var temp = 0.obs;
@@ -32,22 +28,11 @@ class DashBoardController extends GetxController {
   MqttConnectionState connectionState;
   @override
   void onInit() {
-    sensor.value = Sensor(user: "dinhvanhoang", isStart: false);
-    conecttMQTT(tempTopic);
+    conecttMQTT(iotTopic);
     // conecttMQTT(airTopic);
     update();
     super.onInit();
   }
-
-  // checkSensor(Sensor sensor, String topic, List<History> list) {
-  //   if (sensor.isStart == null) {
-  //     for (int i = 0; i < list.length; i++) {
-  //       if (list[i].topic == topic) {
-  //         sensor.isStart = list[i].isStart;
-  //       }
-  //     }
-  //   }
-  // }
 
   void conecttMQTT(String topicsub) async {
     client = MqttClient(mqttUrl, '');
@@ -61,29 +46,27 @@ class DashBoardController extends GetxController {
         .withWillQos(MqttQos.atMostOnce);
     client.connectionMessage = connMess;
     try {
-      await client.connect(mqtt_user, mqtt_pass);
+      await client.connect(mqttUsername, mqttPassword);
     } catch (e) {
-      print(e);
       disconnect();
     }
     if (client.connectionState == MqttConnectionState.connected) {
       connectionState = client.connectionState;
       client.subscribe(topicsub, MqttQos.exactlyOnce);
-      client.subscribe(airTopic, MqttQos.exactlyOnce);
 
       print('CONNECT MQTT BROKER AND SUBSCRIBE TOPIC: $topicsub');
-      ShowToask("'CONNECT MQTT BROKER");
+      // showToask("'CONNECT MQTT BROKER");
       client.updates.listen(onMessage);
     } else {
       disconnect();
       print('Connection failed , state is ${client.connectionState}');
-      ShowToask("'NOT CONNECT MQTT BROKER");
+      // showToask("'NOT CONNECT MQTT BROKER");
     }
   }
 
   void disconnect() {
     client.disconnect();
-    ShowToask("Disconnect Broker MQTT");
+    showToask("Disconnect Broker MQTT");
   }
 
   void publish(var message, String topicPub) {
@@ -96,17 +79,20 @@ class DashBoardController extends GetxController {
     }
   }
 
-  void onMessage(List<MqttReceivedMessage<MqttMessage>> event) {
+  void onMessage(List<MqttReceivedMessage<MqttMessage>> event) async {
     // hàm nhận dũ liệu từ server mqtt
     final MqttPublishMessage recMess = event[0].payload;
     final String message =
         MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
     var data = json.decode(message);
-    sensor.value = Sensor.fromJson(data);
+    print("day la data $data");
+    subSensor.value = SubSensorModel.fromJson(data);
+    Get.find<HistoryController>().updateHistory();
+    await getSubSensor();
     update();
   }
 
-  void ShowToask(String message) {
+  void showToask(String message) {
     Fluttertoast.showToast(
         msg: '$message',
         toastLength: Toast.LENGTH_SHORT,
@@ -117,36 +103,85 @@ class DashBoardController extends GetxController {
         fontSize: 16.0);
   }
 
-  bool onChangeSensor() {
-    sensor.value.isStart = !sensor.value.isStart;
-    sensor.value.user = mqtt_user;
-
-    sendMessage = sensor.value.toJson();
-    sendMessage.publish(sendMessage);
-    return sensor.value.isStart;
-  }
-
-  void onclick1() {
+  void onclick1(SubSensorModel sensor) {
     print("Onclick button 1");
-    sensor.value.isStart = !sensor.value.isStart;
+    sensor.isStart = !sensor.isStart;
     // String tx = "Send Message Nut 1 ";
+    temp += Random().nextInt(30);
     humidity += Random().nextInt(100);
-    temp += Random().nextInt(100);
     update();
     // {"RL1":"0"}
     String tx =
-        "{\"topic\":\"$tempTopic\",\"user\":\"vanHoang\",\"isStart\":${sensor.value.isStart},\"temperature\":$humidity,\"humidity\":$temp}";
-    publish(tx, tempTopic);
+        "{\"sensorName\":\"${sensor.sensorName}\",\"user\":\"vanHoang\",\"isStart\":${sensor.isStart},\"sensorType\":1}";
+
+    publish(tx, iotTopic);
   }
 
-  getType(bool value) {
-    switch (value) {
-      case true:
-        return Image.asset("assets/icons/on.png");
-      case false:
-        return Image.asset("assets/icons/off.png");
+  var sonometerSensor = SubSensorModel().obs;
+  var thermometerSensor = SubSensorModel().obs;
+  var cloudSensor = SubSensorModel().obs;
+  var windSensor = SubSensorModel().obs;
+  var temperatureSensor = SubSensorModel().obs;
+  var pressureSensor = SubSensorModel().obs;
+  var mainSensor = SubSensorModel().obs;
+  var rainSensor = SubSensorModel().obs;
+
+  getSubSensor() {
+    if (subSensor.value != null) {
+      if (subSensor.value.sensorType == 2) {
+        switch (subSensor.value.sensorName) {
+          case "sonometer":
+            return sonometerSensor.value = subSensor.value;
+          case "thermometer":
+            return thermometerSensor.value = subSensor.value;
+          case "cloud":
+            return cloudSensor.value = subSensor.value;
+          case "wind":
+            return windSensor.value = subSensor.value;
+          case "pressure":
+            return pressureSensor.value = subSensor.value;
+          case "temperature":
+            return temperatureSensor.value = subSensor.value;
+          case "rain":
+            return rainSensor.value = subSensor.value;
+        }
+      }
+      if (subSensor.value.sensorType == 1) {
+        return mainSensor.value = subSensor.value;
+      }
+    }
+  }
+
+  setImageForSensor(SubSensorModel a) {
+    switch (a.sensorName) {
+      case "fan":
+        if (a.isStart) return "assets/fan_on.png";
+        return "assets/fan_off.png";
+      case "Motor pH":
+        if (a.isStart) return "assets/ph_on.png";
+        return "assets/ph_off.png";
+      case "air-conditioner":
+        if (a.isStart) return "assets/air_conditioner_on.png";
+        return "assets/air_connditoner_off.png";
+      case "fountain":
+        if (a.isStart) return "assets/fountain_on.png";
+        return "assets/fountain_off.png";
+      case "incandescent bulbs":
+        if (a.isStart) return "assets/icons/on.jpg";
+        return "assets/icons/off.jpg";
       default:
-        Image.asset("assets/icons/off.png");
+        return "assets/icons/temp.jpg";
+    }
+  }
+
+  checkLastAction(History lastAction) {
+    if (mainSensor.value == null || mainSensor.value.isStart == null) {
+      mainSensor.value = SubSensorModel(
+          sensorType: lastAction.sensorType,
+          sensorName: lastAction.sensorName,
+          user: lastAction.user,
+          isStart: lastAction.isStart);
+      return mainSensor.value;
     }
   }
 

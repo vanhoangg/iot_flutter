@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/screen_util.dart';
 
 import '../../../constants.dart';
 
@@ -38,7 +39,6 @@ class FeaturePlantCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: press,
       child: Container(
@@ -47,7 +47,7 @@ class FeaturePlantCard extends StatelessWidget {
           top: kDefaultPadding / 2,
           bottom: kDefaultPadding / 2,
         ),
-        width: size.width * 0.8,
+        width: ScreenUtil.defaultSize.width * 0.8,
         height: 185,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

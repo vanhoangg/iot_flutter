@@ -38,6 +38,10 @@ dependencies:
   flutter_screenutil:
   flutter_spinkit: ^4.1.2+1
   darq: ^0.5.1
+  flutter_secure_storage: ^3.3.4
+  shared_preferences: ^0.5.12+4
+  email_validator: '^1.0.6'
+
   
 
 dev_dependencies:

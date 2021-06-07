@@ -1,13 +1,16 @@
 import 'package:http/http.dart' as http;
-import 'package:iot_flutter/model/history_model.dart';
 
 import '../constants.dart';
+import '../model/history_model.dart';
 
 class HistoryReposiory {
-  Future<List<History>> getHistory() async {
+  Future<List<History>> getHistory({String token}) async {
     final infoUrl = "$baseUrl$history";
     final client = new http.Client();
-    var response = await client.get(infoUrl);
+    var response = await client.get(infoUrl, headers: {
+      'Authorization': 'Bearer $token',
+    });
+    print(response.statusCode);
 
     if (response.statusCode != 200) throw Exception("failed to load info");
     if (response == null) return null;

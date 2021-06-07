@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iot_flutter/constants.dart';
+
+import '../constants.dart';
 
 class AppLoading extends StatelessWidget {
   final Widget child;
@@ -20,7 +21,7 @@ class AppLoading extends StatelessWidget {
               child: ColoredBox(
             color: Colors.grey.withOpacity(0.4),
             child: Center(
-              child: kLoadingSpinner,
+              child: loadding,
             ),
           ))
       ],

@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/screens/history/history_page.dart';
+import 'package:iot_flutter/screens/home/home_screen.dart';
 
 import '../../constants.dart';
+import '../../screens/authen/controller/auth_controller.dart';
+import '../../screens/authen/login_page.dart';
+import '../../screens/profile/profile_page.dart';
 
 class MyBottomNavBar extends StatelessWidget {
-  const MyBottomNavBar({
+  MyBottomNavBar({
     Key key,
   }) : super(key: key);
+  final AuthController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class MyBottomNavBar extends StatelessWidget {
       ),
       height: 50,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: kBackgroundColor,
         boxShadow: [
           BoxShadow(
             offset: Offset(0, -10),
@@ -33,10 +37,11 @@ class MyBottomNavBar extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: IconButton(
-              icon: SvgPicture.asset("assets/icons/flower.svg"),
-              onPressed: () {
-                Get.back();
-              },
+              icon: SvgPicture.asset(
+                "assets/icons/flower.svg",
+                color: kPrimaryColor,
+              ),
+              onPressed: () => Get.off(() => HomeScreen()),
             ),
           ),
           VerticalDivider(
@@ -45,9 +50,15 @@ class MyBottomNavBar extends StatelessWidget {
           ),
           Expanded(
             child: IconButton(
-              icon: SvgPicture.asset("assets/icons/user-icon.svg"),
+              icon: SvgPicture.asset(
+                "assets/icons/user-icon.svg",
+                color: kPrimaryColor,
+              ),
               onPressed: () {
-                Get.to(HistoryPage());
+                controller.checkLogin();
+                controller.isLogin.value
+                    ? Get.to(() => ProfilePage())
+                    : Get.to(() => LoginPage());
               },
             ),
           ),

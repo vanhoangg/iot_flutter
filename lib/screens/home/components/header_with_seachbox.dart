@@ -14,15 +14,15 @@ class HeaderWithSearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: kDefaultPadding),
+      margin: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
       // It will cover 20% of our total height
       child: Container(
         alignment: Alignment.center,
-        margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        margin: EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
         padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
         height: 54,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: kPrimaryColor,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
@@ -39,15 +39,17 @@ class HeaderWithSearchBox extends StatelessWidget {
                 onChanged: (value) {},
                 decoration: InputDecoration(
                   hintText: "Search",
-                  hintStyle: TextStyle(
-                    color: kPrimaryColor.withOpacity(0.5),
-                  ),
+                  hintStyle:
+                      TextStyle(color: kBackgroundColor, fontSize: titleSize),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
                 ),
               ),
             ),
-            SvgPicture.asset("assets/icons/search.svg"),
+            SvgPicture.asset(
+              "assets/icons/search.svg",
+              color: kBackgroundColor,
+            ),
           ],
         ),
       ),

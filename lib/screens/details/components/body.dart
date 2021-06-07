@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:iot_flutter/model/plant-model.dart';
 
+import '../../../model/plant-model.dart';
 import 'image_and_icons.dart';
 import 'title_and_price.dart';
 

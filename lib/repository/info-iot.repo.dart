@@ -1,10 +1,10 @@
 import 'package:http/http.dart' as http;
-import 'package:iot_flutter/constants.dart';
-import 'package:iot_flutter/model/info-iot_model.dart';
+
+import '../model/info-iot_model.dart';
 
 class InfoIotRepository {
-  Future<List<InfoIot>> fetchBanners() async {
-    final infoUrl = "$baseUrl$infoIots";
+  Future<List<InfoIot>> fetchBanners({String url}) async {
+    final infoUrl = url;
     final client = new http.Client();
     var response = await client.get(infoUrl);
 

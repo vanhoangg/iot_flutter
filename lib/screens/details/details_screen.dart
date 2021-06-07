@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iot_flutter/model/plant-model.dart';
 
+import '../../constants.dart';
+import '../../model/plant-model.dart';
 import 'components/body.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: buildAppBar(isBack: true, context: context),
       body: SafeArea(
           child: Body(
         plants: plants,

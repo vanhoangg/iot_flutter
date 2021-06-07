@@ -6,6 +6,7 @@ class UnicornOutlineButton extends StatelessWidget {
   final VoidCallback _callback;
   final double _radius;
   final Color color;
+  final Color backgroundColor;
 
   UnicornOutlineButton({
     @required double strokeWidth,
@@ -14,6 +15,7 @@ class UnicornOutlineButton extends StatelessWidget {
     @required Widget child,
     @required VoidCallback onPressed,
     this.color,
+    this.backgroundColor,
   })  : this._painter = _GradientPainter(
             strokeWidth: strokeWidth, radius: radius, gradient: gradient),
         this._child = child,
@@ -32,6 +34,7 @@ class UnicornOutlineButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(_radius),
           onTap: _callback,
           child: Container(
+            color: backgroundColor,
             constraints: BoxConstraints(
                 minWidth: size.width / 2, minHeight: size.width / 2),
             child: Row(
