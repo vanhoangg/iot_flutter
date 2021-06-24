@@ -1,12 +1,11 @@
 import 'package:darq/darq.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:iot_flutter/screens/authen/controller/auth_controller.dart';
 
 import '../../model/chart_history_model.dart';
 import '../../model/history_model.dart';
 import '../../repository/history.repo.dart';
+import '../authen/controller/auth_controller.dart';
 import '../iot_dashboard/dashboard_controller.dart';
 
 class HistoryController extends GetxController {
@@ -14,13 +13,13 @@ class HistoryController extends GetxController {
   var listHistory = Rx<List<History>>();
   var listTopic = Rx<List<History>>();
   var listChartData = List<ChartHistorySenSor>().obs;
+
   int count = 0;
   final DashBoardController controller = Get.find();
   final AuthController authController = Get.find();
   @override
   void onInit() async {
     await getHistory();
-    setCount();
     super.onInit();
   }
 
@@ -69,11 +68,13 @@ class HistoryController extends GetxController {
   }
 
   getChartDate() {
+    if (listChartData != null) listChartData.clear();
     listTopic.value = listHistory.value.distinct((e) => e.sensorName).toList();
     listTopic.value.forEach((e) {
       listChartData
-          .add(ChartHistorySenSor(topic: e.sensorName, color: Colors.blue));
+          .add(ChartHistorySenSor(topic: e.sensorName, createdAt: e.date));
     });
+    setCount();
     update();
   }
 
@@ -84,7 +85,10 @@ class HistoryController extends GetxController {
           element.countEnable += 1;
       });
     });
+    listChartData.sort((a, b) => a.countEnable.compareTo(b.countEnable));
   }
+
+  orderByMonth() {}
 
   setImageForSensorHistory(History a) {
     switch (a.sensorName) {

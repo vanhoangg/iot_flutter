@@ -1,13 +1,12 @@
 import 'dart:math';
 
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/model/authen_model.dart';
 
 import '../../app_btn.dart';
 import '../../constants.dart';
+import '../../model/authen_model.dart';
 import 'controller/auth_controller.dart';
 import 'login_page.dart';
 

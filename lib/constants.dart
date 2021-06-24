@@ -3,8 +3,9 @@ import 'package:flutter_screenutil/screen_util.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/app_color.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'app_color.dart';
 
 // Colors that we use in our app
 const kPrimaryColor = Color(0xFF0C9869);

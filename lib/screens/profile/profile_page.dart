@@ -5,7 +5,6 @@ import '../../app_btn.dart';
 import '../../app_color.dart';
 import '../../constants.dart';
 import '../authen/controller/auth_controller.dart';
-import '../authen/login_page.dart';
 import 'components/field_profile_items.dart';
 
 class ProfilePage extends StatelessWidget {

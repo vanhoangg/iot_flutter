@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:iot_flutter/constants.dart';
-import 'package:iot_flutter/screens/authen/login_page.dart';
-import 'package:iot_flutter/screens/home/home_screen.dart';
 
 import '../../../app_color.dart';
+import '../../../constants.dart';
 import '../../../model/authen_model.dart';
 import '../../../repository/authen.repo.dart';
+import '../../home/home_screen.dart';
+import '../login_page.dart';
 
 class AuthController extends GetxController {
   final AuthRepository authRepository = AuthRepository();

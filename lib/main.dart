@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/route.dart';
-import 'package:iot_flutter/screens/authen/login_page.dart';
 
 import 'binding.dart';
 import 'constants.dart';
-import 'screens/home/home_screen.dart';
+import 'route.dart';
 
 void main() {
   runApp(MyApp());

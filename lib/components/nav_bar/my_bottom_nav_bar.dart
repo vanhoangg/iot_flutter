@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/screens/home/home_screen.dart';
 
 import '../../constants.dart';
 import '../../screens/authen/controller/auth_controller.dart';
 import '../../screens/authen/login_page.dart';
+import '../../screens/home/home_screen.dart';
 import '../../screens/profile/profile_page.dart';
 
 class MyBottomNavBar extends StatelessWidget {
