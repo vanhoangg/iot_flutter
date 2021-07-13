@@ -1,11 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/app_color.dart';
-import 'package:iot_flutter/constants.dart';
-import 'package:iot_flutter/screens/history/history_controller.dart';
+
+import '../../app_color.dart';
+import '../../constants.dart';
+import 'history_controller.dart';
 
 class BarChartSample2 extends StatefulWidget {
   final HistoryController controller = Get.find();

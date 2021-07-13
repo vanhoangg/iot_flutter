@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "50047871001",
+    "project_id": "flutter-iot-36c3c",
+    "storage_bucket": "flutter-iot-36c3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:50047871001:android:0104b2ab752e0acf572288",
+        "android_client_info": {
+          "package_name": "com.example.iot_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "50047871001-m10uip7ksca422lrv8mra8phomk62p7r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iot_flutter",
+            "certificate_hash": "2b7f2a7a983092f4a690715d8c011bc47f16a27d"
+          }
+        },
+        {
+          "client_id": "50047871001-dv6d1ivs30vrm4q72av1fc3sk1qgfunk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0Vv0eZVnwRM9Pk46Ie5h5yEgmWGlL3oM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "50047871001-dv6d1ivs30vrm4q72av1fc3sk1qgfunk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

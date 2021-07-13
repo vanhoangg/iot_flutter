@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/screens/iot_dashboard/dashboard_controller.dart';
 
 import '../../components/nav_bar/my_bottom_nav_bar.dart';
 import '../../constants.dart';
 import '../history/history_controller.dart';
+import '../iot_dashboard/dashboard_controller.dart';
 import 'components/home_menu.dart';
 import 'components/recomend_plants.dart';
 import 'components/title_with_more_bbtn.dart';

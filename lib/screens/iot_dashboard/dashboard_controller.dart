@@ -4,12 +4,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/screens/authen/controller/auth_controller.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
 import '../../constants.dart';
 import '../../model/history_model.dart';
 import '../../model/sub_sensor.model.dart';
+import '../authen/controller/auth_controller.dart';
 import '../history/history_controller.dart';
 
 class DashBoardController extends GetxController {

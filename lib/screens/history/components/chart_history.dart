@@ -2,7 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 import 'package:get/get.dart';
-import 'package:iot_flutter/screens/history/history_controller.dart';
+
+import '../history_controller.dart';
 
 class LineChartSample2 extends StatefulWidget {
   @override
