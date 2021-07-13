@@ -9,12 +9,9 @@ class StorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(isBack: true, context: context),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Container(
-          height: ScreenUtil.defaultSize.height * 2,
-          child: Column(children: [Expanded(child: ItemStore())]),
-        ),
+      body: Container(
+        height: ScreenUtil.defaultSize.height * 4,
+        child: Column(children: [Expanded(child: ItemStore())]),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:iot_flutter/screens/authen/controller/auth_controller.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
 import '../../constants.dart';
@@ -14,6 +15,8 @@ import '../history/history_controller.dart';
 class DashBoardController extends GetxController {
   var subSensor = Rx<SubSensorModel>();
   String clientId = Random().toString();
+  AuthController authController = Get.find();
+
   // String mqtt_server = "192.168.1.217";
   String mqttUsername = "hoang";
   String mqttPassword = "";
@@ -112,7 +115,7 @@ class DashBoardController extends GetxController {
     update();
     // {"RL1":"0"}
     String tx =
-        "{\"sensorName\":\"${sensor.sensorName}\",\"user\":\"vanHoang\",\"isStart\":${sensor.isStart},\"sensorType\":1}";
+        "{\"sensorName\":\"${sensor.sensorName}\",\"user\":\"${authController.userProfile.value.profile.userName}\",\"isStart\":${sensor.isStart},\"sensorType\":1}";
 
     publish(tx, iotTopic);
   }

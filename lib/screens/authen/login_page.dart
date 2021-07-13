@@ -136,13 +136,6 @@ class _LoginPageState extends State<LoginPage> {
                               //     onRegistrationSuccess:
                               //         () {}),
                             ),
-                            InkWell(
-                              child: Padding(
-                                padding: EdgeInsets.all(5),
-                                child: Text("Quên mật khẩu"),
-                              ),
-                              onTap: () => null,
-                            ),
                           ],
                         ),
                       ),

@@ -46,9 +46,6 @@ class MenuItem extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                    child: _buildBtn('Giống cây', 'icons/11.jpg',
-                        onTap: () => Get.to(StorePage()))),
-                Expanded(
                     child: _buildBtn('Thống kê', 'btn5.png',
                         onTap: () => Get.to(HistoryPage()))),
               ],

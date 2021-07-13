@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
 
 import 'app_color.dart';
 
@@ -17,16 +18,16 @@ final miniTitleSize = ScreenUtil().setSp(10);
 
 final double kDefaultPadding = ScreenUtil().setHeight(20);
 //Todo config theo ip v4
-const String baseUrl = "http://127.0.0.1:3001/";
+String baseUrl = "http://127.0.0.1:3001/";
 const String infoIots = "info-iots";
 const String plants = "suggestion-plants";
 const String history = "history";
-const String loginUrl = "http://127.0.0.1:3001/login?";
-const String signupUrl = "http://127.0.0.1:3001/signup?";
+String loginUrl = "http://127.0.0.1:3001/login?";
+String signupUrl = "http://127.0.0.1:3001/signup?";
 const String infoIotDevice = "info-iots-device";
 const String infoIotAgriculture = "info-iots-agriculture";
 //Todo config theo ip v4
-const String mqttUrl = "broker.hivemq.com";
+const String mqttUrl = "127.0.0.1";
 const int mqttPort = 1883; // APP
 const String iotTopic = "iot";
 
