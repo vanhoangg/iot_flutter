@@ -9,33 +9,38 @@ import '../home_controller.dart';
 import 'title_with_more_bbtn.dart';
 
 class InfoPage extends StatelessWidget {
-  final HomeController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(isBack: true, context: context),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InfoItem(
-                title: "Thông tin tổng quan về IOT",
-                list: controller.listInfo.value,
-              ),
-              InfoItem(
-                title: "Thiết bị IOT",
-                list: controller.listInfoDevice.value,
-              ),
-              InfoItem(
-                title: "Nông nghiệp IOT",
-                list: controller.listInfoAgri.value,
-              ),
-            ],
-          ),
-        ),
+        child: GetX<HomeController>(builder: (controller) {
+          controller.getInfoIot();
+          controller.getInfoIotAgri();
+          controller.getInfoIotDevice();
+
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InfoItem(
+                  title: "Thông tin tổng quan về IOT",
+                  list: controller.listInfo.value,
+                ),
+                InfoItem(
+                  title: "Thiết bị IOT",
+                  list: controller.listInfoDevice.value,
+                ),
+                InfoItem(
+                  title: "Nông nghiệp IOT",
+                  list: controller.listInfoAgri.value,
+                ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

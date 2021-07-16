@@ -50,7 +50,7 @@ class HomeController extends GetxController {
   getListPlant() async {
     await plantRepository.getPlant().then((value) {
       listPlants.value = value;
-      update();
     });
+    update();
   }
 }

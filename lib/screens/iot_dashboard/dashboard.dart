@@ -44,7 +44,7 @@ class _AppStateMQTT extends State<DashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DashBoardController>(builder: (controller) {
+    return GetX<DashBoardController>(builder: (controller) {
       // controller.getSubSensor(controller.subSensor.value);
 
       if (controller.subSensor.value == null ||

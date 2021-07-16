@@ -7,44 +7,51 @@ import '../../../model/plant-model.dart';
 import '../../details/details_screen.dart';
 import '../home_controller.dart';
 
-class RecomendsPlants extends StatelessWidget {
-  final HomeController controller = Get.find();
+class RecomendsPlants extends StatefulWidget {
   RecomendsPlants({
     Key key,
   }) : super(key: key);
 
   @override
+  _RecomendsPlantsState createState() => _RecomendsPlantsState();
+}
+
+class _RecomendsPlantsState extends State<RecomendsPlants> {
+  @override
   Widget build(BuildContext context) {
-    controller.getListPlant();
     return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Container(
-          child: Obx(() => controller.listPlants?.value?.length == null
-              ? SizedBox.shrink()
-              : Row(
-                  children: List.generate(controller.listPlants.value?.length,
-                      (index) {
-                    return Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
-                      child: RecomendPlantCard(
-                        plants: controller.listPlants.value[index],
-                        image:
-                            "$baseUrl${controller.listPlants.value[index].filePath}",
-                        title: controller.listPlants.value[index].title,
-                        press: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailsScreen(
-                                  plants: controller.listPlants?.value[index]),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  }),
-                )),
+          child: GetX<HomeController>(builder: (controller) {
+            controller.getListPlant();
+            return controller.listPlants?.value?.length == null
+                ? SizedBox.shrink()
+                : Row(
+                    children: List.generate(controller.listPlants.value?.length,
+                        (index) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding / 2),
+                        child: RecomendPlantCard(
+                          plants: controller.listPlants.value[index],
+                          image:
+                              "$baseUrl${controller.listPlants.value[index].filePath}",
+                          title: controller.listPlants.value[index].title,
+                          press: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailsScreen(
+                                    plants:
+                                        controller.listPlants?.value[index]),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    }),
+                  );
+          }),
         ));
   }
 }

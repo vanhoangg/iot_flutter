@@ -19,7 +19,9 @@ class SensorItem extends StatefulWidget {
 class _SensorItemState extends State<SensorItem> {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DashBoardController>(builder: (controller) {
+    return GetX<DashBoardController>(builder: (controller) {
+      controller.conecttMQTT(iotTopic);
+
       if (controller.mainSensor.value.isStart == null) return loadding;
       return Container(
         child: Column(

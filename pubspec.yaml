@@ -41,6 +41,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   email_validator: '^1.0.6'
   fl_chart:
+  uuid: ^2.2.2
 
   
 

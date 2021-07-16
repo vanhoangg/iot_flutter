@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:mqtt_client/mqtt_client.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../constants.dart';
 import '../../model/history_model.dart';
@@ -16,6 +17,7 @@ class DashBoardController extends GetxController {
   var subSensor = Rx<SubSensorModel>();
   String clientId = Random().toString();
   AuthController authController = Get.find();
+  var uuid = Uuid().v1();
 
   // String mqtt_server = "192.168.1.217";
   String mqttUsername = "hoang";
@@ -38,13 +40,13 @@ class DashBoardController extends GetxController {
   }
 
   void conecttMQTT(String topicsub) async {
-    client = MqttClient(mqttUrl, '');
+    client = MqttClient(mqttUrl, uuid);
     client.port = mqttPort;
     client.logging(on: true);
     client.keepAlivePeriod = 30;
 
     final MqttConnectMessage connMess = MqttConnectMessage()
-        .withClientIdentifier(clientId)
+        .withClientIdentifier(uuid)
         .keepAliveFor(30)
         .withWillQos(MqttQos.atMostOnce);
     client.connectionMessage = connMess;

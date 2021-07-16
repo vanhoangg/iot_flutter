@@ -15,11 +15,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // final HomeController homeController = Get.find();
   @override
   void initState() {
     Get.put(DashBoardController());
-
     Get.put(HistoryController());
+
+    // setState(() {
+    //   homeController.getInfoIot();
+    //   homeController.getInfoIotDevice();
+    //   homeController.getInfoIotAgri();
+    //   homeController.getListPlant();
+    // });
     super.initState();
   }
 
