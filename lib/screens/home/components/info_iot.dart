@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/get.dart';
 
 import '../../../constants.dart';
@@ -73,9 +72,9 @@ class InfoItem extends StatelessWidget {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : Swiper(
+              : ListView.builder(
+                  shrinkWrap: true,
                   itemCount: list?.length,
-                  autoplay: true,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                       decoration: BoxDecoration(
