@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screenutil_init.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'binding.dart';
@@ -7,17 +7,19 @@ import 'constants.dart';
 import 'route.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  bool login;
+  bool? login;
   @override
   void initState() {
     super.initState();
@@ -26,7 +28,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: () => GetMaterialApp(
+      builder: (context, widget) => GetMaterialApp(
         initialBinding: BindingController(),
         debugShowCheckedModeBanner: false,
         title: 'IOT Support Application',

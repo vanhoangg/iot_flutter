@@ -1,20 +1,3 @@
-// class InfoIot {
-//   // String id;
-//   // String title;
-//   // String content;
-//   // String filePath;
-//   // InfoIot({this.id, this.title, this.content, this.filePath});
-//   // InfoIot.fromJsonMap(Map<String, dynamic> map)
-//   //     : id = map["id"],
-//   //       title = map["title"],
-//   //       content = map["content"],
-//   //       filePath = map["filePath"];
-//   //
-// }
-// To parse this JSON data, do
-//
-//     final welcome = welcomeFromJson(jsonString);
-
 import 'dart:convert';
 
 List<InfoIot> infoIotFromJson(String str) =>
@@ -37,16 +20,16 @@ class InfoIot {
     this.v,
   });
 
-  String id;
-  String title;
-  String content;
-  String fileName;
-  String filePath;
-  String fileType;
-  String fileSize;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
+  String? id;
+  String? title;
+  String? content;
+  String? fileName;
+  String? filePath;
+  String? fileType;
+  String? fileSize;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
 
   factory InfoIot.fromJson(Map<String, dynamic> json) => InfoIot(
         id: json["_id"],
@@ -69,8 +52,8 @@ class InfoIot {
         "filePath": filePath,
         "fileType": fileType,
         "fileSize": fileSize,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
         "__v": v,
       };
 }

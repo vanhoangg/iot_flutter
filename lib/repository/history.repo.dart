@@ -4,16 +4,14 @@ import '../constants.dart';
 import '../model/history_model.dart';
 
 class HistoryReposiory {
-  Future<List<History>> getHistory({String token}) async {
+  Future<List<History>> getHistory({required String token}) async {
     final infoUrl = "$baseUrl$history";
-    final client = new http.Client();
-    var response = await client.get(infoUrl, headers: {
+    final client = http.Client();
+    var response = await client.get(Uri.parse(infoUrl), headers: {
       'Authorization': 'Bearer $token',
     });
-    print(response.statusCode);
 
     if (response.statusCode != 200) throw Exception("failed to load info");
-    if (response == null) return null;
     var jsonString = response.body;
     return historyFromJson(jsonString);
   }

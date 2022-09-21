@@ -24,20 +24,20 @@ class Plant {
     this.v,
   });
 
-  String id;
-  String uid;
-  String title;
-  int temperature;
-  int humidity;
-  int water;
-  String description;
-  String fileName;
-  String filePath;
-  String fileType;
-  String fileSize;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int v;
+  String? id;
+  String? uid;
+  String? title;
+  int? temperature;
+  int? humidity;
+  int? water;
+  String? description;
+  String? fileName;
+  String? filePath;
+  String? fileType;
+  String? fileSize;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
 
   factory Plant.fromJson(Map<String, dynamic> json) => Plant(
         id: json["_id"],
@@ -68,8 +68,8 @@ class Plant {
         "filePath": filePath,
         "fileType": fileType,
         "fileSize": fileSize,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
         "__v": v,
       };
 }

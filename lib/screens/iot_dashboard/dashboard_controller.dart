@@ -11,26 +11,23 @@ import '../../constants.dart';
 import '../../model/history_model.dart';
 import '../../model/sub_sensor.model.dart';
 import '../authen/controller/auth_controller.dart';
-import '../history/history_controller.dart';
 
 class DashBoardController extends GetxController {
-  var subSensor = Rx<SubSensorModel>();
+  var subSensor = Rx<SubSensorModel>(SubSensorModel());
   String clientId = Random().toString();
   AuthController authController = Get.find();
-  var uuid = Uuid().v1();
+  var uuid = const Uuid().v1();
 
   // String mqtt_server = "192.168.1.217";
   String mqttUsername = "hoang";
   String mqttPassword = "";
+  Rx<bool> isClicked = Rx<bool>(true);
 
-  var sendMessage;
   var humidity = 0.obs;
   var temp = 0.obs;
 
-  var socket;
-
-  MqttClient client;
-  MqttConnectionState connectionState;
+  MqttClient client = MqttClient(mqttUrl, "uuid");
+  MqttConnectionState? connectionState;
   @override
   void onInit() {
     conecttMQTT(iotTopic);
@@ -43,11 +40,12 @@ class DashBoardController extends GetxController {
     client = MqttClient(mqttUrl, uuid);
     client.port = mqttPort;
     client.logging(on: true);
-    client.keepAlivePeriod = 30;
+    client.keepAlivePeriod = 20;
 
     final MqttConnectMessage connMess = MqttConnectMessage()
         .withClientIdentifier(uuid)
         .keepAliveFor(30)
+        // .authenticateAs(mqttUsername, password)
         .withWillQos(MqttQos.atMostOnce);
     client.connectionMessage = connMess;
     try {
@@ -59,17 +57,15 @@ class DashBoardController extends GetxController {
       connectionState = client.connectionState;
       client.subscribe(topicsub, MqttQos.exactlyOnce);
 
-      print('CONNECT MQTT BROKER AND SUBSCRIBE TOPIC: $topicsub');
       // showToask("'CONNECT MQTT BROKER");
-      client.updates.listen(onMessage);
+      client.updates?.listen(onMessage);
     } else {
       disconnect();
-      print('Connection failed , state is ${client.connectionState}');
       // showToask("'NOT CONNECT MQTT BROKER");
     }
   }
 
-  void disconnect() {
+  void disconnect() async {
     client.disconnect();
     showToask("Disconnect Broker MQTT");
   }
@@ -78,28 +74,26 @@ class DashBoardController extends GetxController {
     if (connectionState == MqttConnectionState.connected) {
       final MqttClientPayloadBuilder message1 = MqttClientPayloadBuilder();
       message1.addString(message);
-      client.publishMessage(topicPub, MqttQos.exactlyOnce, message1.payload);
-      print('Data send:  $message');
+      client.publishMessage(topicPub, MqttQos.exactlyOnce, message1.payload!);
       // ShowToask(message);
     }
   }
 
   void onMessage(List<MqttReceivedMessage<MqttMessage>> event) async {
     // hàm nhận dũ liệu từ server mqtt
-    final MqttPublishMessage recMess = event[0].payload;
+    final MqttPublishMessage recMess = event[0].payload as MqttPublishMessage;
     final String message =
         MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
     var data = json.decode(message);
-    print("day la data $data");
     subSensor.value = SubSensorModel.fromJson(data);
-    Get.find<HistoryController>().updateHistory();
+    // Get.find<HistoryController>().updateHistory();
     await getSubSensor();
     update();
   }
 
-  void showToask(String message) {
+  showToask(String message) {
     Fluttertoast.showToast(
-        msg: '$message',
+        msg: message,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
@@ -109,15 +103,14 @@ class DashBoardController extends GetxController {
   }
 
   void onclick1(SubSensorModel sensor) {
-    print("Onclick button 1");
-    sensor.isStart = !sensor.isStart;
+    sensor.isStart = !(sensor.isStart ?? false);
     // String tx = "Send Message Nut 1 ";
     temp += Random().nextInt(30);
     humidity += Random().nextInt(100);
     update();
     // {"RL1":"0"}
     String tx =
-        "{\"sensorName\":\"${sensor.sensorName}\",\"user\":\"${authController.userProfile.value.profile.userName}\",\"isStart\":${sensor.isStart},\"sensorType\":1}";
+        "{\"sensorName\":\"${sensor.sensorName}\",\"user\":\"${authController.userProfile.value.profile?.userName}\",\"isStart\":${sensor.isStart},\"sensorType\":1}";
 
     publish(tx, iotTopic);
   }
@@ -132,60 +125,58 @@ class DashBoardController extends GetxController {
   var rainSensor = SubSensorModel().obs;
 
   getSubSensor() {
-    if (subSensor.value != null) {
-      if (subSensor.value.sensorType == 2) {
-        switch (subSensor.value.sensorName) {
-          case "sonometer":
-            return sonometerSensor.value = subSensor.value;
-          case "thermometer":
-            return thermometerSensor.value = subSensor.value;
-          case "cloud":
-            return cloudSensor.value = subSensor.value;
-          case "wind":
-            return windSensor.value = subSensor.value;
-          case "pressure":
-            return pressureSensor.value = subSensor.value;
-          case "temperature":
-            return temperatureSensor.value = subSensor.value;
-          case "rain":
-            return rainSensor.value = subSensor.value;
-        }
+    if (subSensor.value.sensorType == 2) {
+      switch (subSensor.value.sensorName) {
+        case "sonometer":
+          return sonometerSensor.value = subSensor.value;
+        case "thermometer":
+          return thermometerSensor.value = subSensor.value;
+        case "cloud":
+          return cloudSensor.value = subSensor.value;
+        case "wind":
+          return windSensor.value = subSensor.value;
+        case "pressure":
+          return pressureSensor.value = subSensor.value;
+        case "temperature":
+          return temperatureSensor.value = subSensor.value;
+        case "rain":
+          return rainSensor.value = subSensor.value;
       }
-      if (subSensor.value.sensorType == 1) {
-        return mainSensor.value = subSensor.value;
-      }
+    }
+    if (subSensor.value.sensorType == 1) {
+      return mainSensor.value = subSensor.value;
     }
   }
 
   setImageForSensor(SubSensorModel a) {
     switch (a.sensorName) {
       case "fan":
-        if (a.isStart) return "assets/fan_on.png";
+        if (a.isStart ?? false) return "assets/fan_on.png";
         return "assets/fan_off.png";
       case "Motor pH":
-        if (a.isStart) return "assets/ph_on.png";
+        if (a.isStart ?? false) return "assets/ph_on.png";
         return "assets/ph_off.png";
       case "air-conditioner":
-        if (a.isStart) return "assets/air_conditioner_on.png";
+        if (a.isStart ?? false) return "assets/air_conditioner_on.png";
         return "assets/air_connditoner_off.png";
       case "fountain":
-        if (a.isStart) return "assets/fountain_on.png";
+        if (a.isStart ?? false) return "assets/fountain_on.png";
         return "assets/fountain_off.png";
       case "incandescent bulbs":
-        if (a.isStart) return "assets/icons/on.jpg";
+        if (a.isStart ?? false) return "assets/icons/on.jpg";
         return "assets/icons/off.jpg";
       default:
         return "assets/icons/temp.jpg";
     }
   }
 
-  checkLastAction(History lastAction) {
-    if (mainSensor.value == null || mainSensor.value.isStart == null) {
+  checkLastAction(History? lastAction) {
+    if (mainSensor.value.isStart == null) {
       mainSensor.value = SubSensorModel(
-          sensorType: lastAction.sensorType,
-          sensorName: lastAction.sensorName,
-          user: lastAction.user,
-          isStart: lastAction.isStart);
+          sensorType: lastAction?.sensorType,
+          sensorName: lastAction?.sensorName,
+          user: lastAction?.user,
+          isStart: lastAction?.isStart);
       return mainSensor.value;
     }
   }

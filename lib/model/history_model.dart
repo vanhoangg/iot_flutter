@@ -20,19 +20,19 @@ class History {
     this.sensorType,
   });
 
-  String id;
-  String sensorName;
-  int sensorType;
-  String user;
-  bool isStart;
-  DateTime date;
+  String? id;
+  String? sensorName;
+  int? sensorType;
+  String? user;
+  bool? isStart;
+  DateTime? date;
 
   factory History.fromJson(Map<String, dynamic> json) => History(
-        id: json["_id"] == null ? null : json["_id"],
-        sensorName: json["sensorName"] == null ? null : json["sensorName"],
-        sensorType: json["sensorType"] == null ? null : json["sensorType"],
-        user: json["user"] == null ? null : json["user"],
-        isStart: json["isStart"] == null ? false : json["isStart"],
+        id: json["_id"],
+        sensorName: json["sensorName"],
+        sensorType: json["sensorType"],
+        user: json["user"],
+        isStart: json["isStart"] ?? false,
         date: DateTime.parse(json["date"]),
       );
 
@@ -42,6 +42,6 @@ class History {
         "sensorType": sensorType,
         "user": user,
         "isStart": isStart,
-        "date": date.toIso8601String(),
+        "date": date?.toIso8601String(),
       };
 }

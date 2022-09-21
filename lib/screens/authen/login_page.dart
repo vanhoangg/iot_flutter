@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screen_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../app_btn.dart';
@@ -9,6 +9,8 @@ import 'controller/auth_controller.dart';
 import 'reg_page.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -27,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Container(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/icons/mqtt.jpg"),
               fit: BoxFit.fill,
@@ -49,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                         width: ScreenUtil.defaultSize.width,
                         height: 100,
                         child: Stack(
-                          overflow: Overflow.visible,
+                          clipBehavior: Clip.none,
                           children: [
                             Positioned(
                               top: kDefaultPadding,
@@ -57,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                                 width: ScreenUtil.defaultSize.width,
                                 child: Align(
                                   alignment: Alignment.topCenter,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: ScreenUtil.defaultSize.width / 4,
                                     child: Image.asset(
                                       "assets/icons/mqtt.jpg",
@@ -127,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             InkWell(
-                              child: Padding(
+                              child: const Padding(
                                 padding: EdgeInsets.all(5),
                                 child: Text("Đăng ký"),
                               ),
@@ -152,16 +154,15 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 class ItemProfileTextField extends StatelessWidget {
-  final String label, hintText, labelText;
-  final bool isEnable, isPassword;
-  final double paddingHorizontal, paddingVertical;
-  final TextEditingController editingController;
-  final TextInputType inputType;
-  final bool isFocus;
+  final String? label, hintText, labelText;
+  final bool? isEnable, isPassword, isFocus;
+  final double? paddingHorizontal, paddingVertical;
+  final TextEditingController? editingController;
+  final TextInputType? inputType;
 
-  final void Function(String) callBack;
+  final void Function(String)? callBack;
   const ItemProfileTextField({
-    Key key,
+    Key? key,
     this.label,
     this.hintText,
     this.isEnable = false,
@@ -187,11 +188,11 @@ class ItemProfileTextField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
-            autofocus: isFocus,
+            autofocus: isFocus ?? false,
             keyboardType: inputType,
             decoration: InputDecoration(
               border: OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: AppColor.grey),
+                borderSide: const BorderSide(width: 1, color: AppColor.grey),
                 borderRadius: BorderRadius.circular(5),
               ),
               labelText: labelText ?? '',
@@ -203,8 +204,8 @@ class ItemProfileTextField extends StatelessWidget {
             ),
             controller: editingController,
             enabled: isEnable,
-            obscureText: isPassword,
-            onSubmitted: (_) => callBack(_),
+            obscureText: isPassword ?? false,
+            onSubmitted: (_) => callBack?.call(_),
           ),
         ],
       ),

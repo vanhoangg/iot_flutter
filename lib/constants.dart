@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screen_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -32,7 +32,7 @@ const String iotTopic = "iot";
 
 // const String tracking = "http://localhost:3001/tracking";
 int appConvertIntJson(dynamic value) {
-  if (value == null) return null;
+  if (value == null) return 0;
   if (value is double) return value.toInt();
   return value;
 }
@@ -45,7 +45,7 @@ Center kLoadingSpinner = const Center(
 );
 Widget loadding = SafeArea(
   child: Container(
-    decoration: BoxDecoration(
+    decoration: const BoxDecoration(
         gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -53,12 +53,12 @@ Widget loadding = SafeArea(
           kBackgroundColor,
           kPrimaryColor,
         ])),
-    child: Center(
+    child: const Center(
       child: CircularProgressIndicator(),
     ),
   ),
 );
-AppBar buildAppBar({@required BuildContext context, bool isBack = false}) {
+AppBar buildAppBar({required BuildContext context, bool isBack = false}) {
   return AppBar(
     title: Text(
       "Smart IOT",
@@ -82,8 +82,8 @@ AppBar buildAppBar({@required BuildContext context, bool isBack = false}) {
 }
 
 void displayDialog(String title, String text) => Get.snackbar(
-      "$title",
-      "$text",
+      title,
+      text,
       snackPosition: SnackPosition.BOTTOM,
       colorText: AppColor.warning,
     );
@@ -92,7 +92,7 @@ getToken() async {
   return prefs.getString("token");
 }
 
-setToken({String token}) async {
+setToken({required String token}) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.setString("token", token);
 }

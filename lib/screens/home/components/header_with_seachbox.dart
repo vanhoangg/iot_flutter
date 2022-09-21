@@ -5,8 +5,8 @@ import '../../../constants.dart';
 
 class HeaderWithSearchBox extends StatelessWidget {
   const HeaderWithSearchBox({
-    Key key,
-    @required this.size,
+    Key? key,
+    required this.size,
   }) : super(key: key);
 
   final Size size;
@@ -26,7 +26,7 @@ class HeaderWithSearchBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 10),
+              offset: const Offset(0, 10),
               blurRadius: 50,
               color: kPrimaryColor.withOpacity(0.23),
             ),

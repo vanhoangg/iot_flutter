@@ -14,8 +14,8 @@ class Auth {
     this.token,
   });
 
-  Profile profile;
-  String token;
+  Profile? profile;
+  String? token;
 
   factory Auth.fromJson(Map<String, dynamic> json) => Auth(
         profile: Profile.fromJson(json["profile"]),
@@ -23,7 +23,7 @@ class Auth {
       );
 
   Map<String, dynamic> toJson() => {
-        "profile": profile.toJson(),
+        "profile": profile?.toJson(),
         "token": token,
       };
 }
@@ -41,15 +41,15 @@ class Profile {
     this.v,
   });
 
-  List<dynamic> listPlant;
-  String id;
-  String userName;
-  String password;
-  String email;
-  String phoneNumber;
-  String address;
-  String avatar;
-  int v;
+  List<dynamic>? listPlant;
+  String? id;
+  String? userName;
+  String? password;
+  String? email;
+  String? phoneNumber;
+  String? address;
+  String? avatar;
+  int? v;
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
         listPlant: List<dynamic>.from(json["listPlant"].map((x) => x)),
@@ -64,7 +64,7 @@ class Profile {
       );
 
   Map<String, dynamic> toJson() => {
-        "listPlant": List<dynamic>.from(listPlant.map((x) => x)),
+        "listPlant": List<dynamic>.from(listPlant?.map((x) => x) ?? []),
         "_id": id,
         "userName": userName,
         "password": password,

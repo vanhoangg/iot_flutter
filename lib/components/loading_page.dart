@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
@@ -6,7 +5,8 @@ import '../constants.dart';
 class AppLoading extends StatelessWidget {
   final Widget child;
   final bool loading;
-  const AppLoading({@required this.child, @required this.loading});
+  const AppLoading({Key? key, required this.child, required this.loading})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Stack(

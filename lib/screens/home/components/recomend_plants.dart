@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screen_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../constants.dart';
-import '../../../model/plant-model.dart';
+import '../../../model/plant_model.dart';
 import '../../details/details_screen.dart';
 import '../home_controller.dart';
 
 class RecomendsPlants extends StatefulWidget {
-  RecomendsPlants({
-    Key key,
+  const RecomendsPlants({
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -21,58 +21,52 @@ class _RecomendsPlantsState extends State<RecomendsPlants> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Container(
-          child: GetX<HomeController>(builder: (controller) {
-            controller.getListPlant();
-            return controller.listPlants?.value?.length == null
-                ? SizedBox.shrink()
-                : Row(
-                    children: List.generate(controller.listPlants.value?.length,
-                        (index) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: kDefaultPadding / 2),
-                        child: RecomendPlantCard(
-                          plants: controller.listPlants.value[index],
-                          image:
-                              "$baseUrl${controller.listPlants.value[index].filePath}",
-                          title: controller.listPlants.value[index].title,
-                          press: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailsScreen(
-                                    plants:
-                                        controller.listPlants?.value[index]),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    }),
-                  );
-          }),
-        ));
+        child: GetX<HomeController>(builder: (controller) {
+          controller.getListPlant();
+          return Row(
+            children:
+                List.generate(controller.listPlants.value.length, (index) {
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
+                child: RecomendPlantCard(
+                  plants: controller.listPlants.value[index],
+                  image:
+                      "$baseUrl${controller.listPlants.value[index].filePath}",
+                  title: controller.listPlants.value[index].title ?? "",
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailsScreen(
+                            plants: controller.listPlants.value[index]),
+                      ),
+                    );
+                  },
+                ),
+              );
+            }),
+          );
+        }));
   }
 }
 
 class RecomendPlantCard extends StatelessWidget {
   const RecomendPlantCard({
-    Key key,
+    Key? key,
     this.image,
     this.title,
     this.plants,
     this.press,
   }) : super(key: key);
 
-  final String image, title;
-  final Function press;
-  final Plant plants;
+  final String? image, title;
+  final Function? press;
+  final Plant? plants;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: press,
+      onTap: press?.call(),
       child: Column(
         children: [
           Container(
@@ -85,7 +79,7 @@ class RecomendPlantCard extends StatelessWidget {
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(
-                      image,
+                      image ?? "",
                       // fit: BoxFit.cover,
                     ))),
             width: ScreenUtil.defaultSize.width * 0.5,
@@ -99,7 +93,7 @@ class RecomendPlantCard extends StatelessWidget {
                     color: kBackgroundColor,
                     boxShadow: [
                       BoxShadow(
-                        offset: Offset(0, 10),
+                        offset: const Offset(0, 10),
                         blurRadius: 50,
                         color: kPrimaryColor.withOpacity(0.23),
                       ),
@@ -132,11 +126,7 @@ class RecomendPlantCard extends StatelessWidget {
                                   child: Image.asset('assets/icons/water.jpg'),
                                 ),
                                 Text(
-                                  ((plants.water ?? 0.0).toInt() == null
-                                          ? '0'
-                                          : (plants.water ?? 0.0)
-                                              .toInt()
-                                              .toString()) +
+                                  (plants?.water ?? 0.0).toInt().toString() +
                                       '%',
                                   style: TextStyle(
                                       fontSize: miniTitleSize,
@@ -154,10 +144,10 @@ class RecomendPlantCard extends StatelessWidget {
                                   child: Image.asset('assets/icons/temp.jpg'),
                                 ),
                                 Text(
-                                    plants.temperature
-                                            .toStringAsFixed(0)
-                                            .toString() +
-                                        '°C',
+                                    plants?.temperature
+                                            ?.toStringAsFixed(0)
+                                            .toString() ??
+                                        "" '°C',
                                     style: TextStyle(
                                         fontSize: miniTitleSize,
                                         color: Colors.black)),
@@ -173,11 +163,7 @@ class RecomendPlantCard extends StatelessWidget {
                                   child: Image.asset('assets/icons/humi.jpg'),
                                 ),
                                 Text(
-                                  ((plants.humidity ?? 0.0).toInt() == null
-                                          ? '0'
-                                          : (plants.humidity ?? 0.0)
-                                              .toInt()
-                                              .toString()) +
+                                  (plants?.humidity ?? 0.0).toInt().toString() +
                                       '%',
                                   style: TextStyle(
                                       fontSize: miniTitleSize,

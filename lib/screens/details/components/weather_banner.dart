@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../../../model/plant-model.dart';
+import '../../../model/plant_model.dart';
 
 class WeatherBanner extends StatelessWidget {
   final Plant plants;
 
-  const WeatherBanner({Key key, this.plants}) : super(key: key);
+  const WeatherBanner({Key? key, required this.plants}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -25,7 +25,7 @@ class WeatherBanner extends StatelessWidget {
               SizedBox(
                 child: Image.asset('assets/icons/temp.jpg'),
               ),
-              Text(plants.temperature.toStringAsFixed(0).toString() + '°C',
+              Text(plants.temperature?.toStringAsFixed(0).toString() ?? "" '°C',
                   style:
                       TextStyle(fontSize: miniTitleSize, color: Colors.black)),
             ],
@@ -45,9 +45,10 @@ class WeatherBanner extends StatelessWidget {
 
 class Percent extends StatelessWidget {
   final Widget icon;
-  final int percent;
+  final int? percent;
 
-  const Percent({@required this.icon, @required this.percent});
+  const Percent({Key? key, required this.icon, required this.percent})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

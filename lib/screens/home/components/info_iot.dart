@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screen_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:get/get.dart';
 
 import '../../../constants.dart';
-import '../../../model/info-iot_model.dart';
+import '../../../model/info_iot_model.dart';
 import '../home_controller.dart';
 import 'title_with_more_bbtn.dart';
 
 class InfoPage extends StatelessWidget {
+  const InfoPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,11 +50,11 @@ class InfoPage extends StatelessWidget {
 
 class InfoItem extends StatelessWidget {
   final String title;
-  final List<InfoIot> list;
+  final List<InfoIot>? list;
   const InfoItem({
-    Key key,
-    @required this.title,
-    @required this.list,
+    Key? key,
+    required this.title,
+    required this.list,
   }) : super(key: key);
 
   @override
@@ -65,14 +67,14 @@ class InfoItem extends StatelessWidget {
             text: title.toUpperCase(),
           ),
         ),
-        Container(
+        SizedBox(
           height: ScreenUtil.defaultSize.height,
-          child: list.length == null
-              ? Center(
+          child: list?.length == null
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : Swiper(
-                  itemCount: list.length,
+                  itemCount: list?.length,
                   autoplay: true,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
@@ -83,13 +85,13 @@ class InfoItem extends StatelessWidget {
                         children: [
                           Expanded(
                             flex: 1,
-                            child: Container(
+                            child: SizedBox(
                               height: ScreenUtil.defaultSize.height / 4,
                               width: double.infinity,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: Image.network(
-                                  "$baseUrl${list[index].filePath}",
+                                  "$baseUrl${list?[index].filePath}",
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -105,17 +107,17 @@ class InfoItem extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    list[index].title,
+                                    list?[index].title ?? "",
                                     style: TextStyle(
                                         fontSize: titleSize,
                                         fontWeight: FontWeight.w700,
                                         color: kPrimaryColor),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 15,
                                   ),
                                   Text(
-                                    list[index].content,
+                                    list?[index].content ?? "",
                                     style: TextStyle(
                                         fontSize: subTitleSize,
                                         color: kTextColor),

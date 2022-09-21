@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iot_flutter/screens/home/components/home_menu.dart';
 
 import '../../components/nav_bar/my_bottom_nav_bar.dart';
 import '../../constants.dart';
-import '../history/history_controller.dart';
 import '../iot_dashboard/dashboard_controller.dart';
-import 'components/home_menu.dart';
 import 'components/recomend_plants.dart';
 import 'components/title_with_more_bbtn.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -19,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Get.put(DashBoardController());
-    Get.put(HistoryController());
 
     // setState(() {
     //   homeController.getInfoIot();
@@ -40,11 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
+            children: const <Widget>[
               TitleWithMoreBtn(title: "Recomended"),
               RecomendsPlants(),
               TitleWithMoreBtn(title: "Menu"),
-              MenuItem(),
+              MenuItemDashBoard(),
             ],
           ),
         ),

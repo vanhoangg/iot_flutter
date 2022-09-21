@@ -20,13 +20,13 @@ class RegistrationPage extends GetWidget<AuthController> {
     Get.to(RegistrationPage());
   }
 
-  RegistrationPage();
+  RegistrationPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(isBack: true, context: context),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
           child: Center(
@@ -45,7 +45,7 @@ class RegistrationPage extends GetWidget<AuthController> {
                         width: ScreenUtil.defaultSize.width,
                         height: 100,
                         child: Stack(
-                          overflow: Overflow.visible,
+                          clipBehavior: Clip.none,
                           children: [
                             Positioned(
                               top: -50,
@@ -53,7 +53,7 @@ class RegistrationPage extends GetWidget<AuthController> {
                                 width: ScreenUtil.defaultSize.width,
                                 child: Align(
                                   alignment: Alignment.topCenter,
-                                  child: Container(
+                                  child: SizedBox(
                                     width: ScreenUtil.defaultSize.width / 2,
                                     child: Image.asset(
                                       "assets/icons/mqtt.jpg",
@@ -141,24 +141,24 @@ class RegistrationPage extends GetWidget<AuthController> {
                                   address: addressE.text);
 
                               if (profile.userName == null ||
-                                  profile.userName.length < 4)
+                                  (profile.userName?.length ?? 0) < 4) {
                                 displayDialog("Tài khoản không hợp lệ",
                                     "Tên tài khoản phải dài hơn 4 kí tự và không được bỏ trống");
-                              else if (profile.password == null ||
-                                  profile.password.length < 4)
+                              } else if (profile.password == null ||
+                                  (profile.password?.length ?? 0) < 4) {
                                 displayDialog("Mật khẩu không hợp lệ",
                                     "Mật khẩu phải dài hơn 4 kí tự và không được bỏ trống");
-                              else if (profile.phoneNumber == null ||
-                                  profile.phoneNumber.length < 10)
+                              } else if (profile.phoneNumber == null ||
+                                  (profile.phoneNumber?.length ?? 0) < 10) {
                                 displayDialog("Số điện thoại không hợp lệ",
                                     "Số điện thoại phải trên 10 số và không được bỏ trống");
-                              else if (profile.email == null)
+                              } else if (profile.email == null) {
                                 displayDialog("Email không hợp lệ",
                                     "Email không được bỏ trống");
-                              else if (profile.address == null)
+                              } else if (profile.address == null) {
                                 displayDialog("Địa chỉ không hợp lệ",
                                     "Địa chỉ không được bỏ trống");
-                              else {
+                              } else {
                                 controller.reg(user: profile);
                               }
                             }),

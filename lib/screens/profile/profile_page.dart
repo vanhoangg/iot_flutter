@@ -8,6 +8,8 @@ import '../authen/controller/auth_controller.dart';
 import 'components/field_profile_items.dart';
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +25,7 @@ class ProfilePage extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                       backgroundColor: AppColor.grey,
                       radius: 45,
                       // onBackgroundImageError: ,
@@ -40,25 +42,26 @@ class ProfilePage extends StatelessWidget {
                   controller: controller,
                   title: "Tên đăng nhập",
                   labelText: "Tên đăng nhập",
-                  value: controller.userProfile.value.profile.userName ?? "",
+                  value: controller.userProfile.value.profile?.userName ?? "",
                 ),
                 FieldProfileItem(
                     controller: controller,
                     title: "Email",
                     labelText: "Email",
                     value:
-                        controller.userProfile.value.profile.email ?? "Email"),
+                        controller.userProfile.value.profile?.email ?? "Email"),
                 FieldProfileItem(
                   controller: controller,
                   title: "Điện thoại",
                   labelText: "Điện thoại",
-                  value: controller.userProfile.value.profile.phoneNumber ?? "",
+                  value:
+                      controller.userProfile.value.profile?.phoneNumber ?? "",
                 ),
                 FieldProfileItem(
                   controller: controller,
                   title: "Địa chỉ",
                   labelText: "Địa chỉ",
-                  value: controller.userProfile.value.profile.address ?? "",
+                  value: controller.userProfile.value.profile?.address ?? "",
                 ),
 
                 // Container(
@@ -176,17 +179,17 @@ class ProfilePage extends StatelessWidget {
                                 onPressed: () async {
                                   await controller.logout();
                                 },
-                                child: Text("OK"),
+                                child: const Text("OK"),
                                 style: ElevatedButton.styleFrom(
-                                    primary: kPrimaryColor),
+                                    backgroundColor: kPrimaryColor),
                               ),
                               ElevatedButton(
                                 onPressed: () {
                                   Get.back();
                                 },
-                                child: Text("Hủy"),
+                                child: const Text("Hủy"),
                                 style: ElevatedButton.styleFrom(
-                                    primary: Colors.red),
+                                    backgroundColor: Colors.red),
                               ),
                             ],
                           ),

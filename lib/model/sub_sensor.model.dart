@@ -15,12 +15,12 @@ class SubSensorModel {
       this.user,
       this.isStart,
       this.img});
-  String user;
-  bool isStart;
-  String sensorName;
-  int sensorType;
-  int value;
-  String img;
+  String? user;
+  bool? isStart;
+  String? sensorName;
+  int? sensorType;
+  int? value;
+  String? img;
 
   factory SubSensorModel.fromJson(Map<String, dynamic> json) => SubSensorModel(
       sensorName: json["sensorName"] == null ? null : json['sensorName'],

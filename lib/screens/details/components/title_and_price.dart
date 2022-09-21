@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../../../model/plant-model.dart';
+import '../../../model/plant_model.dart';
 import 'weather_banner.dart';
 
 class TitleAndPrice extends StatelessWidget {
   const TitleAndPrice({
-    Key key,
-    this.plants,
+    Key? key,
+    required this.plants,
   }) : super(key: key);
 
   final Plant plants;
@@ -30,7 +30,7 @@ class TitleAndPrice extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
           ),
           Padding(
@@ -39,7 +39,7 @@ class TitleAndPrice extends StatelessWidget {
               plants: plants,
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
           ),
           Padding(
@@ -50,7 +50,7 @@ class TitleAndPrice extends StatelessWidget {
                   TextStyle(fontSize: titleSize, fontWeight: FontWeight.bold),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 2,
           ),
           RichText(

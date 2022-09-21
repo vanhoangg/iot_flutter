@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screen_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../constants.dart';
-import '../../history/history_page.dart';
-import '../../plants/plant_page.dart';
 import 'info_iot.dart';
 
-class MenuItem extends StatelessWidget {
-  const MenuItem({
-    Key key,
+class MenuItemDashBoard extends StatelessWidget {
+  const MenuItemDashBoard({
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -25,15 +23,15 @@ class MenuItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
               children: [
-                Expanded(
-                    child: _buildBtn('Nhà kho', 'icons/17.jpg',
-                        onTap: () => Get.to(StorePage()))),
+                // Expanded(
+                //     child: _buildBtn('Nhà kho', 'icons/17.jpg',
+                //         onTap: () => Get.to(StorePage()))),
                 Expanded(
                   child: _buildBtn('Tin tức', 'icons/cloud.jpg',
-                      onTap: () => Get.to(InfoPage())),
+                      onTap: () => Get.to(const InfoPage())),
                 ),
               ],
             ),
@@ -41,25 +39,25 @@ class MenuItem extends StatelessWidget {
           SizedBox(
             height: ScreenUtil().setHeight(30),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              children: [
-                Expanded(
-                    child: _buildBtn('Thống kê', 'btn5.png',
-                        onTap: () => Get.to(HistoryPage()))),
-              ],
-            ),
-          ),
+          // Container(
+          //   padding: EdgeInsets.symmetric(vertical: 10),
+          //   child: Row(
+          //     children: [
+          //       Expanded(
+          //           child: _buildBtn('Thống kê', 'btn5.png',
+          //               onTap: () => Get.to(HistoryPage()))),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
   }
 }
 
-_buildBtn(String text, String image, {Function onTap}) {
+_buildBtn(String text, String image, {required Function onTap}) {
   return InkWell(
-    onTap: onTap,
+    onTap: onTap.call(),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [

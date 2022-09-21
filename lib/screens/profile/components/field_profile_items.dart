@@ -7,8 +7,8 @@ import '../../authen/controller/auth_controller.dart';
 
 class FieldProfileItem extends StatelessWidget {
   const FieldProfileItem({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
     this.title,
     this.labelText,
     // this.editingController,
@@ -19,8 +19,8 @@ class FieldProfileItem extends StatelessWidget {
   }) : super(key: key);
 
   final AuthController controller;
-  final String title, labelText, value;
-  final Function(String) onOK;
+  final String? title, labelText, value;
+  final Function(String)? onOK;
   final bool isEnable;
   final TextInputType inputType;
 
@@ -31,7 +31,7 @@ class FieldProfileItem extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-          child: Text(labelText),
+          child: Text(labelText ?? ""),
         ),
         Padding(
           padding: EdgeInsets.symmetric(
@@ -46,28 +46,26 @@ class FieldProfileItem extends StatelessWidget {
                 border: Border.all(width: 1, color: AppColor.grey),
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: Text(value),
+              child: Text(value ?? ""),
             ),
             onTap: isEnable
                 ? () {
                     var nickname = TextEditingController();
                     nickname.text = value ?? "";
-                    return Get.defaultDialog(
+                    Get.defaultDialog(
                       title: title ?? "",
-                      content: Container(
-                        child: ItemProfileTextField(
-                          isFocus: true,
-                          inputType: inputType,
-                          labelText: labelText ?? "",
-                          isEnable: true,
-                          editingController: nickname,
-                        ),
+                      content: ItemProfileTextField(
+                        isFocus: true,
+                        inputType: inputType,
+                        labelText: labelText ?? "",
+                        isEnable: true,
+                        editingController: nickname,
                       ),
                       confirm: ElevatedButton(
-                        onPressed: () => onOK(nickname.text),
-                        child: Text('OK'),
+                        onPressed: () => onOK?.call(nickname.text),
+                        child: const Text('OK'),
                         style: ElevatedButton.styleFrom(
-                          primary: AppColor.primary,
+                          backgroundColor: AppColor.primary,
                         ),
                       ),
                     );
@@ -81,16 +79,15 @@ class FieldProfileItem extends StatelessWidget {
 }
 
 class ItemProfileTextField extends StatelessWidget {
-  final String label, hintText, labelText;
-  final bool isEnable, isPassword;
-  final double paddingHorizontal, paddingVertical;
-  final TextEditingController editingController;
-  final TextInputType inputType;
-  final bool isFocus;
+  final String? label, hintText, labelText;
+  final bool? isEnable, isPassword, isFocus;
+  final double? paddingHorizontal, paddingVertical;
+  final TextEditingController? editingController;
+  final TextInputType? inputType;
 
   // final Voidcal
   const ItemProfileTextField({
-    Key key,
+    Key? key,
     this.label,
     this.hintText,
     this.isEnable = false,
@@ -116,11 +113,11 @@ class ItemProfileTextField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
-            autofocus: isFocus,
+            autofocus: isFocus ?? false,
             keyboardType: inputType,
             decoration: InputDecoration(
               border: OutlineInputBorder(
-                borderSide: BorderSide(width: 1, color: AppColor.grey),
+                borderSide: const BorderSide(width: 1, color: AppColor.grey),
                 borderRadius: BorderRadius.circular(5),
               ),
               labelText: labelText ?? '',
@@ -132,7 +129,7 @@ class ItemProfileTextField extends StatelessWidget {
             ),
             controller: editingController,
             enabled: isEnable,
-            obscureText: isPassword,
+            obscureText: isPassword ?? false,
             // onSubmitted: (_) => callBack(_),
           ),
         ],

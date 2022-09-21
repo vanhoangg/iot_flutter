@@ -10,7 +10,7 @@ import '../../screens/profile/profile_page.dart';
 
 class MyBottomNavBar extends StatelessWidget {
   MyBottomNavBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
   final AuthController controller = Get.find();
 
@@ -26,7 +26,7 @@ class MyBottomNavBar extends StatelessWidget {
         color: kBackgroundColor,
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, -10),
+            offset: const Offset(0, -10),
             blurRadius: 35,
             color: kPrimaryColor.withOpacity(0.38),
           ),
@@ -41,10 +41,10 @@ class MyBottomNavBar extends StatelessWidget {
                 "assets/icons/flower.svg",
                 color: kPrimaryColor,
               ),
-              onPressed: () => Get.off(() => HomeScreen()),
+              onPressed: () => Get.off(() => const HomeScreen()),
             ),
           ),
-          VerticalDivider(
+          const VerticalDivider(
             width: 5,
             thickness: 2,
           ),
@@ -57,8 +57,8 @@ class MyBottomNavBar extends StatelessWidget {
               onPressed: () {
                 controller.checkLogin();
                 controller.isLogin.value
-                    ? Get.to(() => ProfilePage())
-                    : Get.to(() => LoginPage());
+                    ? Get.to(() => const ProfilePage())
+                    : Get.to(() => const LoginPage());
               },
             ),
           ),

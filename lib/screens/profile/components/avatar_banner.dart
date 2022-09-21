@@ -7,14 +7,14 @@ class AvatarBanner extends StatelessWidget {
   final String avatar;
   final VoidCallback onClick;
 
-  const AvatarBanner({Key key, @required this.avatar, this.onClick})
+  const AvatarBanner({Key? key, required this.avatar, required this.onClick})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: ListTile(
-        leading: CircleAvatar(
+        leading: const CircleAvatar(
             backgroundColor: AppColor.grey,
             radius: 45,
             // onBackgroundImageError: ,
@@ -31,7 +31,7 @@ class AvatarBanner extends StatelessWidget {
               border: Border.all(width: 1, color: AppColor.primary),
               borderRadius: BorderRadius.circular(5),
             ),
-            child: Center(
+            child: const Center(
                 child: Text(
               'Đổi ảnh',
               style: TextStyle(color: AppColor.primary),

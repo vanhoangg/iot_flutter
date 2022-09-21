@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screen_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants.dart';
 
 class FeaturedPlants extends StatelessWidget {
   const FeaturedPlants({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -30,17 +30,17 @@ class FeaturedPlants extends StatelessWidget {
 
 class FeaturePlantCard extends StatelessWidget {
   const FeaturePlantCard({
-    Key key,
+    Key? key,
     this.image,
-    this.press,
+    required this.press,
   }) : super(key: key);
-  final String image;
+  final String? image;
   final Function press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: press,
+      onTap: press.call(),
       child: Container(
         margin: EdgeInsets.only(
           left: kDefaultPadding,
@@ -53,7 +53,7 @@ class FeaturePlantCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(image),
+            image: AssetImage(image ?? ""),
           ),
         ),
       ),

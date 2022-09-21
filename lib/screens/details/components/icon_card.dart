@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screen_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
@@ -7,15 +7,15 @@ import '../../iot_dashboard/dashboard.dart';
 
 class IconCard extends StatelessWidget {
   const IconCard({
-    Key key,
+    Key? key,
     this.icon,
   }) : super(key: key);
 
-  final String icon;
+  final String? icon;
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return ElevatedButton(
       child: Container(
         margin: EdgeInsets.symmetric(
             vertical: ScreenUtil.defaultSize.height * 0.03),
@@ -27,24 +27,26 @@ class IconCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 15),
+              offset: const Offset(0, 15),
               blurRadius: 22,
               color: kPrimaryColor.withOpacity(0.22),
             ),
-            BoxShadow(
+            const BoxShadow(
               offset: Offset(-15, -15),
               blurRadius: 20,
               color: Colors.white,
             ),
           ],
         ),
-        child: SvgPicture.asset(icon),
+        child: SvgPicture.asset(icon ?? ""),
       ),
       onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DashBoardScreen(),
+            builder: (context) => const DashBoardScreen(
+              history: null,
+            ),
           ),
         );
       },

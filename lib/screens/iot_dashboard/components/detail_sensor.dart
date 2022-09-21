@@ -4,9 +4,9 @@ import '../../../constants.dart';
 import '../../../model/sub_sensor.model.dart';
 
 class DetailSensor extends StatefulWidget {
-  final SubSensorModel sono;
-  final SubSensorModel thermo;
-  const DetailSensor({this.sono, this.thermo});
+  final SubSensorModel? sono;
+  final SubSensorModel? thermo;
+  const DetailSensor({Key? key, this.sono, this.thermo}) : super(key: key);
   @override
   _DetailSensorState createState() => _DetailSensorState();
 }
@@ -17,8 +17,8 @@ class _DetailSensorState extends State<DetailSensor> {
     if (widget.sono == null || widget.thermo == null) return loadding;
 
     return Column(
-      children: [
-        const SizedBox(
+      children: const [
+        SizedBox(
           height: 25,
         ),
       ],
@@ -106,10 +106,12 @@ class AttributeWidget extends StatelessWidget {
   final Color color;
 
   const AttributeWidget(
-      {@required this.title,
-      @required this.color,
-      @required this.content,
-      @required this.assetName});
+      {Key? key,
+      required this.title,
+      required this.color,
+      required this.content,
+      required this.assetName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

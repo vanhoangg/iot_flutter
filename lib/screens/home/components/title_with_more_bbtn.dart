@@ -5,12 +5,12 @@ import '../../../constants.dart';
 
 class TitleWithMoreBtn extends StatelessWidget {
   const TitleWithMoreBtn({
-    Key key,
+    Key? key,
     this.title,
     this.press,
   }) : super(key: key);
-  final String title;
-  final Function press;
+  final String? title;
+  final Function? press;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class TitleWithMoreBtn extends StatelessWidget {
           horizontal: kDefaultPadding / 2, vertical: kDefaultPadding / 2),
       child: Row(
         children: <Widget>[
-          TitleWithCustomUnderline(text: title),
+          TitleWithCustomUnderline(text: title ?? ""),
         ],
       ),
     );
@@ -28,11 +28,11 @@ class TitleWithMoreBtn extends StatelessWidget {
 
 class TitleWithCustomUnderline extends StatelessWidget {
   const TitleWithCustomUnderline({
-    Key key,
+    Key? key,
     this.text,
   }) : super(key: key);
 
-  final String text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class TitleWithCustomUnderline extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
       decoration: BoxDecoration(
           color: kPrimaryColor,
-          border: Border.all(color: AppColor.secondary ?? Colors.transparent),
+          border: Border.all(color: AppColor.secondary),
           borderRadius: BorderRadius.circular(5)),
       child: Stack(
         children: <Widget>[
@@ -48,7 +48,7 @@ class TitleWithCustomUnderline extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 horizontal: kDefaultPadding / 4, vertical: kDefaultPadding / 4),
             child: Text(
-              text,
+              text ?? "",
               style: TextStyle(
                   fontSize: titleSize,
                   fontWeight: FontWeight.bold,

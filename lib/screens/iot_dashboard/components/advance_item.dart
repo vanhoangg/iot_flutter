@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/screen_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants.dart';
 
 class AdvanceItem extends StatelessWidget {
   const AdvanceItem({
-    Key key,
-    @required this.content,
-    @required this.title,
-    @required this.icon,
+    Key? key,
+    required this.content,
+    required this.title,
+    required this.icon,
   }) : super(key: key);
 
   final String content, title, icon;
@@ -28,11 +28,11 @@ class AdvanceItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title ?? "",
+                title,
                 style: TextStyle(color: Colors.black54, fontSize: titleSize),
               ),
               Text(
-                content ?? "",
+                content,
                 style: TextStyle(
                     fontSize: subTitleSize, fontWeight: FontWeight.bold),
               )

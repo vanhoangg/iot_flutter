@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,10 +10,10 @@ import 'components/sensor_item.dart';
 import 'dashboard_controller.dart';
 
 class DashBoardScreen extends StatefulWidget {
-  static void go({History history}) =>
-      Get.to(() => new DashBoardScreen(history: history));
-  final History history;
-  DashBoardScreen({this.history});
+  static void go({required History history}) =>
+      Get.to(() => DashBoardScreen(history: history));
+  final History? history;
+  const DashBoardScreen({Key? key, this.history}) : super(key: key);
   @override
   _AppStateMQTT createState() => _AppStateMQTT();
 }
@@ -22,7 +21,7 @@ class DashBoardScreen extends StatefulWidget {
 class _AppStateMQTT extends State<DashBoardScreen> {
   // khai báo thông số
   bool isChecked = false;
-  TextEditingController messageServer = new TextEditingController();
+  TextEditingController messageServer = TextEditingController();
   final DashBoardController dashBoardConntroller = Get.find();
 
   @override
@@ -37,8 +36,8 @@ class _AppStateMQTT extends State<DashBoardScreen> {
 
   @override
   void dispose() {
-    dashBoardConntroller.subSensor.nil();
-    dashBoardConntroller.mainSensor.nil();
+    dashBoardConntroller.subSensor.close();
+    dashBoardConntroller.mainSensor.close();
     super.dispose();
   }
 
@@ -47,8 +46,7 @@ class _AppStateMQTT extends State<DashBoardScreen> {
     return GetX<DashBoardController>(builder: (controller) {
       // controller.getSubSensor(controller.subSensor.value);
 
-      if (controller.subSensor.value == null ||
-          controller.sonometerSensor.value.value == null ||
+      if (controller.sonometerSensor.value.value == null ||
           controller.thermometerSensor.value.value == null ||
           controller.pressureSensor.value.value == null ||
           controller.temperatureSensor.value.value == null ||
@@ -79,7 +77,7 @@ class _AppStateMQTT extends State<DashBoardScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SensorItem(),
+                            const SensorItem(),
                             itemBasic(controller),
                             Padding(
                               padding: EdgeInsets.symmetric(

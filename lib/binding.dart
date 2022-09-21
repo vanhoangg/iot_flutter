@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
 
 import 'screens/authen/controller/auth_controller.dart';
 import 'screens/home/home_controller.dart';
